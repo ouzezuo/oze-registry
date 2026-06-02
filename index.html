@@ -74,7 +74,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
 .srch input::placeholder{color:var(--ivory3)}
 .srch input:focus{border-color:rgba(139,26,26,.45)}
 .srch-icon{position:absolute;left:14px;color:var(--ivory3);font-size:15px}
-.srch-stat{position:absolute;right:14px;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--ivory3)}
+.srch-stat{position:absolute;right:14px;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--ivory3);white-space:nowrap}
 .cursor{display:inline-block;width:7px;height:12px;background:var(--ivory3);vertical-align:middle;margin-left:2px;animation:blink 1.2s step-end infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 /* BUTTONS */
@@ -203,6 +203,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
 .bc{padding:.9rem 0;font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--ivory3);border-bottom:1px solid var(--border);margin-bottom:0}
 .bc button{background:none;border:none;cursor:pointer;color:var(--ivory3);font-family:var(--mono);font-size:9px;letter-spacing:.1em;transition:color .2s}
 .bc button:hover{color:var(--ivory)}
+@media(max-width:520px){.srch-stat{display:none}}
 @media(max-width:760px){
   .layout,.home-grid{grid-template-columns:1fr}
   .mgrid{grid-template-columns:repeat(2,1fr)}
@@ -249,7 +250,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
     <div style="margin-bottom:1.3rem">
       <div class="srch">
         <span class="srch-icon">⌕</span>
-        <input type="text" placeholder="Search registry by ID, name, classification, or era..." id="home-search" onkeydown="handleHomeSearch(event)">
+        <input type="text" placeholder="Search registry..." id="home-search" onkeydown="handleHomeSearch(event)">
         <span class="srch-stat">Indexing public copy<span class="cursor"></span></span>
       </div>
     </div>
@@ -400,7 +401,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
   <div style="margin-bottom:2rem">
     <div class="srch">
       <span class="srch-icon">⌕</span>
-      <input type="text" placeholder="Filter by ID, name, classification..." id="archive-search" oninput="filterArchive(this.value)">
+      <input type="text" placeholder="Filter records..." id="archive-search" oninput="filterArchive(this.value)">
       <span class="srch-stat">Indexing public copy<span class="cursor"></span></span>
     </div>
   </div>
