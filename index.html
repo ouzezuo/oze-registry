@@ -339,6 +339,218 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
 .f-icon-active{color:var(--red2);font-size:11px;}
 .f-icon-locked{color:var(--ivory4);font-size:10px;opacity:.6;}
 .f-icon-ghost{color:var(--border2);font-size:10px;opacity:.5;}
+
+/* ════════════════════════════════
+   EXT — External Occurrence Files
+════════════════════════════════ */
+:root {
+  --ext-green:  #3a5a2a;
+  --ext-green2: #5a8a45;
+  --ext-green3: #7aaa60;
+  --ext-olive:  #4a5a2a;
+  --ext-border: rgba(90,138,69,0.22);
+  --ext-border2: rgba(90,138,69,0.4);
+}
+
+/* EXT tab accent */
+.atab.ext-tab.active { border-bottom-color: var(--ext-green2); }
+.atab.ext-tab:hover  { color: var(--ext-green3); }
+
+/* EXT case card */
+.ext-card {
+  background: var(--bgcard);
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  cursor: pointer;
+  transition: background .15s;
+  border-left: 3px solid transparent;
+  border: 1px solid var(--ext-border);
+  border-left: 3px solid var(--ext-green);
+  margin-bottom: 2px;
+}
+.ext-card:hover { background: var(--bg3); border-left-color: var(--ext-green2); }
+.ext-tag {
+  display: flex; align-items: center; justify-content: center;
+  border-right: 1px solid var(--ext-border);
+  font-size: 7px; letter-spacing: .1em; color: var(--ext-green2);
+  font-weight: 700; writing-mode: vertical-rl;
+  text-orientation: mixed; transform: rotate(180deg);
+}
+.ext-body { padding: .8rem 1rem; }
+.ext-id   { font-size: 8px; letter-spacing: .11em; color: var(--ext-green2); margin-bottom: 3px; }
+.ext-title { font-family: var(--serif); font-size: 18px; color: var(--ivory); margin-bottom: 5px; line-height: 1.15; }
+.ext-meta  { font-size: 9px; color: var(--ivory4); letter-spacing: .05em; }
+.ext-right {
+  padding: .8rem 1rem; display: flex; flex-direction: column;
+  align-items: flex-end; justify-content: center; gap: 5px;
+  border-left: 1px solid var(--ext-border); min-width: 140px;
+}
+
+/* EXT badge */
+.b-ext  { color: var(--ext-green3); border-color: var(--ext-green); }
+.b-ext2 { color: #8aaa60; border-color: var(--ext-olive); }
+
+/* EXT file view */
+.ext-view-header {
+  background: linear-gradient(135deg, rgba(42,72,28,.35) 0%, rgba(10,12,18,0) 60%);
+  border: 1px solid var(--ext-border);
+  border-left: 3px solid var(--ext-green2);
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.ext-view-eyebrow {
+  font-size: 8px; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--ext-green2); margin-bottom: .5rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.ext-view-eyebrow::before { content: '⊕'; font-size: 10px; }
+.ext-view-title {
+  font-family: var(--serif); font-size: clamp(20px, 3vw, 34px);
+  font-weight: 300; color: var(--ivory); margin-bottom: 8px; line-height: 1.15;
+}
+.ext-view-desc {
+  font-size: 11px; color: var(--ivory3); line-height: 1.85;
+  max-width: 680px; margin-bottom: 1rem;
+}
+.ext-disclaimer {
+  font-size: 9px; color: var(--ivory4); line-height: 1.8;
+  border-top: 1px solid var(--ext-border); padding-top: .8rem;
+  font-style: italic; max-width: 680px;
+}
+
+/* EXT meta layout */
+.ext-layout { display: grid; grid-template-columns: 210px 1fr; gap: 1.8rem; align-items: start; }
+.ext-mblock { background: var(--bgcard); border: 1px solid var(--ext-border); margin-bottom: 1rem; }
+.ext-mblock-head {
+  padding: .42rem .8rem; background: rgba(42,72,28,.3);
+  border-bottom: 1px solid var(--ext-border);
+  font-size: 8px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ext-green2);
+}
+
+/* EXT carousel */
+.ext-carousel-wrap { margin-top: .8rem; }
+.ext-carousel {
+  position: relative;
+  background: var(--bgcard);
+  border: 1px solid var(--ext-border);
+  overflow: hidden;
+}
+.ext-carousel-track {
+  display: flex;
+  transition: transform .35s ease;
+}
+.ext-slide {
+  flex-shrink: 0;
+  width: 100%;
+}
+.ext-slide img {
+  width: 100%;
+  display: block;
+  max-height: 75vh;
+  object-fit: contain;
+  background: #080a07;
+  cursor: zoom-in;
+}
+.ext-carousel-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .7rem 1rem;
+  background: rgba(42,72,28,.15);
+  border-top: 1px solid var(--ext-border);
+}
+.ext-nav-btn {
+  background: none; border: 1px solid var(--ext-border);
+  color: var(--ext-green2); font-family: var(--mono);
+  font-size: 10px; letter-spacing: .1em;
+  padding: 4px 14px; cursor: pointer; transition: all .2s;
+}
+.ext-nav-btn:hover { border-color: var(--ext-border2); color: var(--ext-green3); }
+.ext-nav-btn:disabled { opacity: .25; cursor: default; }
+.ext-nav-counter {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: .15em; color: var(--ivory4);
+  text-align: center;
+}
+.ext-nav-counter strong { color: var(--ext-green2); }
+.ext-slide-meta {
+  padding: .6rem 1rem;
+  background: rgba(42,72,28,.08);
+  border-top: 1px solid var(--ext-border);
+}
+.ext-slide-id    { font-size: 8px; letter-spacing: .12em; color: var(--ext-green2); margin-bottom: 2px; }
+.ext-slide-title { font-size: 11px; color: var(--ivory3); }
+
+/* EXT sec head */
+.ext-sec-head {
+  font-size: 8px; letter-spacing: .24em; text-transform: uppercase;
+  color: var(--ext-green2); padding-bottom: .5rem;
+  border-bottom: 1px solid var(--ext-border); margin-bottom: .8rem;
+  display: flex; align-items: center; gap: .8rem;
+}
+.ext-sec-head::after { content: ''; flex: 1; height: 1px; background: var(--ext-border); }
+
+/* EXT interpretive note */
+.ext-note {
+  border: 1px solid var(--ext-border);
+  border-left: 3px solid var(--ext-green2);
+  background: rgba(42,72,28,.08);
+  padding: 1rem 1.2rem;
+  font-size: 10px; color: var(--ivory3); line-height: 1.85;
+  margin-top: 1rem;
+}
+.ext-note-label {
+  display: block; font-family: var(--mono); font-size: 7px;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--ext-green2); margin-bottom: .4rem;
+}
+
+/* EXT thumbnail grid */
+.ext-thumb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+.ext-thumb-card {
+  background: var(--bgcard);
+  border: 1px solid var(--ext-border);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.ext-thumb-card:hover { border-color: var(--ext-border2); }
+.ext-thumb-card:hover .ext-thumb-hover { opacity: 1; }
+.ext-thumb-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+.ext-thumb-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  filter: brightness(.88);
+  transition: filter .2s;
+}
+.ext-thumb-card:hover .ext-thumb-img-wrap img { filter: brightness(1); }
+.ext-thumb-hover {
+  position: absolute; inset: 0;
+  background: rgba(42,72,28,.45);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity .2s;
+}
+.ext-thumb-zoom {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: .15em; color: var(--ext-green3);
+  border: 1px solid var(--ext-border2);
+  padding: 4px 10px;
+}
+.ext-thumb-info {
+  padding: .4rem .5rem;
+  border-top: 1px solid var(--ext-border);
+}
+.ext-thumb-info .ext-slide-id { font-size: 7px; letter-spacing: .1em; color: var(--ext-green2); margin-bottom: 1px; }
+.ext-thumb-info .ext-slide-title { font-size: 9px; color: var(--ivory4); line-height: 1.3; }
 </style>
 </head>
 <body>
@@ -395,6 +607,17 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
     <div>
       <div class="sec-lbl"><span>◈</span> Registry Activity Log — Recently Added</div>
 
+      <!-- EXT-6729 — most recent entry -->
+      <div class="log-row log-new" onclick="goExtView('EXT-6729')" style="border-left-color:var(--ext-green2)">
+        <div class="log-tag" style="color:var(--ext-green2)">EXT</div>
+        <div class="log-body">
+          <div class="log-id" style="color:var(--ext-green2)">EXT-6729 — External Occurrence Files</div>
+          <div class="log-title">Campo Largo Field-Lights Occurrence</div>
+          <div class="log-sub">→ Archive → EXT Files · Campo Largo, PR · 31 May 2026</div>
+        </div>
+        <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag" style="color:var(--ext-green3);border-color:var(--ext-green)">New</span></div>
+      </div>
+
       <div class="log-row log-new" onclick="goVideoSection()">
         <div class="log-tag">VID</div>
         <div class="log-body">
@@ -413,16 +636,6 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
           <div class="log-sub">→ DOS-CASE-7304 → FOLDER_02</div>
         </div>
         <div class="log-meta"><span class="log-era">319 BX — 2026.05.30</span><span class="log-flag lf-flagged">Flagged</span></div>
-      </div>
-
-      <div class="log-row" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_01')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">CASE-7304-DOC-12 — ENT-SUBJ-4827 → Attached Materials</div>
-          <div class="log-title">Medical Submission Review</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_01</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.05.28</span><span class="log-flag lf-disputed">Disputed</span></div>
       </div>
 
       <div class="log-row" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_01')">
@@ -486,6 +699,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
       </div>
       <div class="sblock">
         <div class="sblock-title">Quick Access</div>
+        <div class="quick-link" onclick="goExtView('EXT-6729')" style="color:var(--ext-green2)">EXT-6729 — Campo Largo Occurrence</div>
         <div class="quick-link" onclick="goEntView('ENT-SUBJ-4827')">ENT-SUBJ-4827 — Caio Floriano</div>
         <div class="quick-link" onclick="goCaseView('DOS-CASE-7304')">DOS-CASE-7304 — Floriano Incident</div>
         <div class="quick-link" onclick="goVideoSection()">CASE-7304-VID-03 — New Video</div>
@@ -509,6 +723,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
     <button class="atab" id="atab-objects" onclick="archTab('objects',this)">Objects</button>
     <button class="atab" id="atab-families" onclick="archTab('families',this)">Families</button>
     <button class="atab" id="atab-materials" onclick="archTab('materials',this)">Materials</button>
+    <button class="atab ext-tab" id="atab-ext" onclick="archTab('ext',this)">EXT Files</button>
     <button class="atab" id="atab-restricted" onclick="archTab('restricted',this)">Restricted</button>
   </div>
 
@@ -708,6 +923,50 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
     </div>
   </div>
 
+
+  <!-- EXT FILES -->
+  <div class="tab-pane" id="tab-ext">
+    <div style="margin-bottom:1.2rem;padding:.8rem 1rem;background:rgba(42,72,28,.1);border:1px solid var(--ext-border);border-left:3px solid var(--ext-green2)">
+      <div style="font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ext-green2);margin-bottom:.4rem">⊕ External Occurrence Files</div>
+      <p style="font-size:10px;color:var(--ivory4);line-height:1.85;max-width:680px">EXT files are fictionalized archival interpretations of public-origin events. They document publicly circulated occurrences — civilian recordings, witness reports, institutional responses — processed through the OZE Registry lens. No divergent classification is confirmed unless explicitly stated. These files do not constitute proof of any kind.</p>
+    </div>
+    <div id="ext-list">
+      <div class="ext-card" onclick="goExtView('EXT-6729')">
+        <div class="ext-tag">EXT</div>
+        <div class="ext-body">
+          <div class="ext-id">EXT-6729</div>
+          <div class="ext-title">Campo Largo Field-Lights Occurrence</div>
+          <div class="ext-meta">Campo Largo, Paraná, Brazil · 31 May 2026 · 319 BX · Open-source public media</div>
+        </div>
+        <div class="ext-right">
+          <span class="badge b-ext">Open</span>
+          <span class="badge b-ext2">Disputed</span>
+          <span style="font-size:8px;color:var(--ivory4)">Not confirmed divergent</span>
+        </div>
+      </div>
+      <!-- ghost EXT entries -->
+      <div class="ext-card" style="opacity:.25;cursor:default;pointer-events:none">
+        <div class="ext-tag" style="color:var(--ext-border)">EXT</div>
+        <div class="ext-body">
+          <div class="ext-id" style="color:var(--ext-border)">EXT-░░░░</div>
+          <div class="ext-title" style="font-family:var(--mono);font-size:12px;color:var(--ivory4)">░░░░░░░░░░░░░░░░░░░░░░░░░</div>
+          <div class="ext-meta">Classification pending · Source review in progress</div>
+        </div>
+        <div class="ext-right"><span class="badge b-seal">Pending</span></div>
+      </div>
+      <div class="ext-card" style="opacity:.14;cursor:default;pointer-events:none">
+        <div class="ext-tag" style="color:var(--ext-border)">EXT</div>
+        <div class="ext-body">
+          <div class="ext-id" style="color:var(--ext-border)">EXT-░░░░</div>
+          <div class="ext-title" style="font-family:var(--mono);font-size:12px;color:var(--ivory4)">░░░░░░░░░░░░░░░░░</div>
+          <div class="ext-meta">Classification pending</div>
+        </div>
+        <div class="ext-right"><span class="badge b-seal">Pending</span></div>
+      </div>
+    </div>
+    <div id="ext-detail" style="display:none"></div>
+  </div>
+
   <!-- RESTRICTED -->
   <div class="tab-pane" id="tab-restricted">
     <div style="max-width:520px">
@@ -801,6 +1060,19 @@ function archTab(id,btn) {
   document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
+  // Always reset any open detail views when switching tabs
+  var vl = document.getElementById('view-list');
+  var vd = document.getElementById('view-detail');
+  var es = document.getElementById('ent-detail-slot');
+  var eg = document.getElementById('ent-grid');
+  var xl = document.getElementById('ext-list');
+  var xd = document.getElementById('ext-detail');
+  if(vl) vl.style.display = '';
+  if(vd){ vd.style.display = 'none'; vd.innerHTML = ''; }
+  if(es) es.innerHTML = '';
+  if(eg) eg.style.display = '';
+  if(xl) xl.style.display = '';
+  if(xd){ xd.style.display = 'none'; xd.innerHTML = ''; }
 }
 
 // ══ home search ══
@@ -1299,6 +1571,123 @@ function filterFolders(q) {
     row.style.display=(s.includes(q.toLowerCase())||id.includes(q.toLowerCase()))?'':'none';
   });
 }
+
+// ══ EXT navigation ══
+function goExtView(id) {
+  nav('archive');
+  archTab('ext', document.getElementById('atab-ext'));
+  document.getElementById('ext-list').style.display = 'none';
+  const d = document.getElementById('ext-detail');
+  d.style.display = 'block';
+  d.innerHTML = buildExtDetail(id);
+  window.scrollTo(0, 0);
+}
+function backToExtList() {
+  document.getElementById('ext-list').style.display = '';
+  const d = document.getElementById('ext-detail');
+  d.style.display = 'none';
+  d.innerHTML = '';
+}
+
+// ══ EXT carousel — replaced by thumb grid ══
+
+// ══ BUILD EXT DETAIL ══
+function buildExtDetail(id) {
+  if (id !== 'EXT-6729') return '<p style="color:var(--ivory4);padding:2rem">Record not available.</p>';
+
+  const slides = [
+    { id: 'EXT-6729-INT-01', title: 'Occurrence Cover / Intake Record',
+      url: 'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780682265/EXT-6729_P01_OCCURRENCE-COVER_v01_fin1x7.png' },
+    { id: 'EXT-6729-VID-01', title: 'Aerial Light Review',
+      url: 'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780682263/EXT-6729_P02_AERIAL-LIGHT-REVIEW_v01_jpwpbk.png' },
+    { id: 'EXT-6729-OBS-01', title: 'Witness Sequence Reconstruction',
+      url: 'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780682263/EXT-6729_P03_WITNESS-SEQUENCE-RECONSTRUCTION_v01_rhsouj.png' },
+    { id: 'EXT-6729-ADM-01', title: 'Institutional Response Summary',
+      url: 'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780682264/EXT-6729_P04_INSTITUTIONAL-RESPONSE-SUMMARY_v01_efmgss.png' },
+    { id: 'EXT-6729-MEAS-01', title: 'Apparent Scale Estimate',
+      url: 'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780682264/EXT-6729_P05_APPARENT-SCALE-ESTIMATE_v01_kwfzzc.png' },
+    { id: 'EXT-6729-REP-01', title: 'Context Correlation Report',
+      url: 'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780682266/EXT-6729_P06_ACOUSTIC-ANIMAL-CORRELATION_v01_fl96bj.png' },
+    { id: 'EXT-6729-NOTE-01', title: 'Registry Interpretation Note',
+      url: 'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780682267/EXT-6729_P07_REGISTRY-INTERPRETATION-NOTE_v01_m1p0gt.png' },
+  ];
+
+  const slideHTML = slides.map((s, i) => `
+    <div class="ext-thumb-card" onclick="openLB('${s.url}','${s.id} · ${s.title}')">
+      <div class="ext-thumb-img-wrap">
+        <img src="${s.url}" alt="${s.title}" loading="lazy">
+        <div class="ext-thumb-hover">
+          <span class="ext-thumb-zoom">⊕ View</span>
+        </div>
+      </div>
+      <div class="ext-thumb-info">
+        <div class="ext-slide-id">${s.id}</div>
+        <div class="ext-slide-title">${s.title}</div>
+      </div>
+    </div>`).join('');
+
+  return `
+<div class="case-bc">
+  <button onclick="backToExtList()">← External Files</button>
+  <span style="color:var(--ext-border2)"> / </span>
+  <span style="color:var(--ext-green2)">EXT-6729</span>
+</div>
+
+<div class="ext-view-header">
+  <div class="ext-view-eyebrow">External Occurrence File · 319 BX · Restricted Public Copy</div>
+  <h2 class="ext-view-title">Campo Largo Field-Lights Occurrence</h2>
+  <p class="ext-view-desc">EXT-6729 preserves a public-origin aerial light occurrence recorded near Campo Largo, Paraná, Brazil, on 31 May 2026. The file gathers public-source imagery, witness sequence reconstruction, institutional response context, apparent scale estimation, and OZE interpretive notes. No divergent classification has been confirmed.</p>
+  <div class="ext-disclaimer">This file is a fictionalized archival interpretation of a publicly circulated event. It does not constitute proof of any claim. All observations are reported, alleged, or publicly circulated material preserved under OZE interpretive review.</div>
+</div>
+
+<div class="ext-layout">
+  <div>
+    <div class="ext-mblock">
+      <div class="ext-mblock-head">File Metadata</div>
+      <table class="mtbl">
+        <tr><td>File ID</td><td style="color:var(--ext-green2)">EXT-6729</td></tr>
+        <tr><td>Category</td><td>External Occurrence</td></tr>
+        <tr><td>Status</td><td>Open / Disputed</td></tr>
+        <tr><td>Reliability</td><td>Multi-Source / Unverified</td></tr>
+        <tr><td>Access</td><td>Restricted Public Copy</td></tr>
+        <tr><td>Date</td><td>31 May 2026</td></tr>
+        <tr><td>Era</td><td>319 BX</td></tr>
+        <tr><td>Location</td><td>Campo Largo, PR, Brazil</td></tr>
+        <tr><td>Source Layer</td><td>Open-source / Civilian / Institutional response</td></tr>
+        <tr><td>Phenomenon</td><td>Aerial light cluster</td></tr>
+        <tr><td>Div. Class.</td><td style="color:var(--ext-green2)">Not Confirmed</td></tr>
+        <tr><td>Records</td><td>7 documents</td></tr>
+      </table>
+    </div>
+    <div class="ext-mblock">
+      <div class="ext-mblock-head">Source Assessment</div>
+      <table class="mtbl">
+        <tr><td>Origin</td><td>Public media circulation</td></tr>
+        <tr><td>Recording</td><td>Civilian, unverified</td></tr>
+        <tr><td>Witness</td><td>Public source — not centered</td></tr>
+        <tr><td>Institutional</td><td>Response documented, inconclusive</td></tr>
+        <tr><td>OZE Review</td><td>Interpretive — not independent</td></tr>
+      </table>
+    </div>
+    <div class="ext-note">
+      <span class="ext-note-label">OZE Interpretive Position</span>
+      Nothing in this file has been independently verified by OZE field personnel. All content is drawn from open-source public material. The event may be unresolved — but the record exists.
+    </div>
+  </div>
+
+  <div>
+    <div class="ext-sec-head">Document Sequence — EXT-6729</div>
+    <p style="font-size:10px;color:var(--ivory4);line-height:1.85;margin-bottom:1rem;max-width:580px">Seven documents have been preserved in connection with this occurrence. They are presented in archival sequence. All records are public-source material processed under OZE interpretive review. Click any document to open full size.</p>
+    <div class="ext-thumb-grid">${slideHTML}</div>
+
+    <div class="ext-note" style="margin-top:1.5rem">
+      <span class="ext-note-label">Classification Note</span>
+      EXT files do not confirm divergent events. They confirm that a public occurrence became significant enough to be preserved. Reliability of individual records varies. Interpretations are OZE-internal and non-authoritative.
+    </div>
+  </div>
+</div>`;
+}
+
 </script>
 </body>
 </html>
