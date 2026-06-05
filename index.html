@@ -607,8 +607,39 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
     <div>
       <div class="sec-lbl"><span>◈</span> Registry Activity Log — Recently Added</div>
 
-      <!-- EXT-6729 — most recent entry -->
-      <div class="log-row log-new" onclick="goExtView('EXT-6729')" style="border-left-color:var(--ext-green2)">
+      <!-- VID-01/02/04 released — most recent -->
+      <div class="log-row log-new" onclick="goVideoSection()">
+        <div class="log-tag">VID</div>
+        <div class="log-body">
+          <div class="log-id">CASE-7304-VID-01 — The Floriano Museum Incident</div>
+          <div class="log-title">Museum Security Feed Fragment — Released</div>
+          <div class="log-sub">→ DOS-CASE-7304 → Video Records</div>
+        </div>
+        <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag lf-new">New</span></div>
+      </div>
+
+      <div class="log-row log-new" onclick="goVideoSection()">
+        <div class="log-tag">VID</div>
+        <div class="log-body">
+          <div class="log-id">CASE-7304-VID-02 — The Floriano Museum Incident</div>
+          <div class="log-title">Empty Pedestal Security Feed — Released</div>
+          <div class="log-sub">→ DOS-CASE-7304 → Video Records</div>
+        </div>
+        <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag lf-new">New</span></div>
+      </div>
+
+      <div class="log-row log-new" onclick="goVideoSection()">
+        <div class="log-tag">VID</div>
+        <div class="log-body">
+          <div class="log-id">CASE-7304-VID-04 — The Floriano Museum Incident</div>
+          <div class="log-title">Hallway Footage Fragment — Released</div>
+          <div class="log-sub">→ DOS-CASE-7304 → Video Records</div>
+        </div>
+        <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag lf-new">New</span></div>
+      </div>
+
+      <!-- EXT-6729 -->
+      <div class="log-row" onclick="goExtView('EXT-6729')" style="border-left-color:var(--ext-green2)">
         <div class="log-tag" style="color:var(--ext-green2)">EXT</div>
         <div class="log-body">
           <div class="log-id" style="color:var(--ext-green2)">EXT-6729 — External Occurrence Files</div>
@@ -618,7 +649,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
         <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag" style="color:var(--ext-green3);border-color:var(--ext-green)">New</span></div>
       </div>
 
-      <div class="log-row log-new" onclick="goVideoSection()">
+      <div class="log-row" onclick="goVideoSection()">
         <div class="log-tag">VID</div>
         <div class="log-body">
           <div class="log-id">CASE-7304-VID-03 — The Floriano Museum Incident</div>
@@ -643,16 +674,6 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
         <div class="log-body">
           <div class="log-id">CASE-7304-REP-01 — ENT-SUBJ-4827 → Attached Materials</div>
           <div class="log-title">Current Appearance Record</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_01</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.05.28</span><span class="log-flag lf-public">Public</span></div>
-      </div>
-
-      <div class="log-row" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_01')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">CASE-7304-DOC-01 — ENT-SUBJ-4827 → Attached Materials</div>
-          <div class="log-title">Subject Identification Sheet</div>
           <div class="log-sub">→ DOS-CASE-7304 → FOLDER_01</div>
         </div>
         <div class="log-meta"><span class="log-era">319 BX — 2026.05.28</span><span class="log-flag lf-public">Public</span></div>
@@ -688,7 +709,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
         <div class="sblock-title">Registry Index</div>
         <div class="reg-row"><div class="rk">Entities</div><div class="rv">01 public · <span class="s">■■■ sealed</span></div></div>
         <div class="reg-row"><div class="rk">Case Dossiers</div><div class="rv">01 public · <span class="s">■■ sealed</span></div></div>
-        <div class="reg-row"><div class="rk">Video Records</div><div class="rv">01 public · 03 sealed</div></div>
+        <div class="reg-row"><div class="rk">Video Records</div><div class="rv">04 public</div></div>
         <div class="reg-row"><div class="rk">Historical Events</div><div class="rv">Access insufficient</div></div>
         <div class="dead-lines">
           <div class="dl">// CROSS-REF ENGINE OFFLINE</div>
@@ -1404,45 +1425,69 @@ function buildCaseDetail(caseId) {
           </div>
         </div>
 
-        <!-- VID-01 locked -->
-        <div class="vcard">
+        <!-- VID-01 — public -->
+        <div class="vcard" id="vcard-01">
           <div class="vcard-player">
-            <img src="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780598262/VID_CASE-7304-VID-01_qvi8qe.png" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.5) grayscale(.4);" alt="">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+              <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1780598338/VID_CASE-7304-VID-01_ue2ykx.mp4" type="video/mp4">
+            </video>
             <div class="vcard-scanlines"></div>
-            <div class="vcard-lock-overlay"><div class="vcard-lock-icon">⊠</div><div class="vcard-lock-label">Access Restricted</div></div>
+            <div class="vcard-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+            <div class="vcard-stamp">REC · VID-01</div>
+            <div class="vcard-thumb">
+              <img src="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780598262/VID_CASE-7304-VID-01_qvi8qe.png" alt="VID-01">
+              <div class="vcard-thumb-overlay"><div class="vcard-play-btn">▶</div></div>
+            </div>
+            <button class="vcard-mute">♪ OFF</button>
           </div>
           <div class="vcard-info">
             <div class="vcard-id">CASE-7304-VID-01</div>
             <div class="vcard-title">Museum Security Feed Fragment</div>
-            <div class="vcard-badges"><span class="badge b-seal">Sealed</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">12 Aug 2026</span></div>
+            <div class="vcard-badges"><span class="badge b-open">Public</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">12 Aug 2026 · 319 BX</span></div>
           </div>
         </div>
 
-        <!-- VID-02 locked -->
-        <div class="vcard">
+        <!-- VID-02 — public -->
+        <div class="vcard" id="vcard-02">
           <div class="vcard-player">
-            <img src="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780598277/CASE-7304-VID-02_thumb_cmdjqv.png" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.5) grayscale(.4);" alt="">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+              <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1780598339/CASE-7304-VID-02_final_zycr6y.mp4" type="video/mp4">
+            </video>
             <div class="vcard-scanlines"></div>
-            <div class="vcard-lock-overlay"><div class="vcard-lock-icon">⊠</div><div class="vcard-lock-label">Access Restricted</div></div>
+            <div class="vcard-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+            <div class="vcard-stamp">REC · VID-02</div>
+            <div class="vcard-thumb">
+              <img src="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780598277/CASE-7304-VID-02_thumb_cmdjqv.png" alt="VID-02">
+              <div class="vcard-thumb-overlay"><div class="vcard-play-btn">▶</div></div>
+            </div>
+            <button class="vcard-mute">♪ OFF</button>
           </div>
           <div class="vcard-info">
             <div class="vcard-id">CASE-7304-VID-02</div>
             <div class="vcard-title">Empty Pedestal Security Feed</div>
-            <div class="vcard-badges"><span class="badge b-seal">Sealed</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">13 Aug 2026</span></div>
+            <div class="vcard-badges"><span class="badge b-open">Public</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">13 Aug 2026 · 319 BX</span></div>
           </div>
         </div>
 
-        <!-- VID-04 locked -->
-        <div class="vcard">
+        <!-- VID-04 — public -->
+        <div class="vcard" id="vcard-04">
           <div class="vcard-player">
-            <img src="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780598280/CASE-7304-VID-01_frame-end_hallway-footage-fragmen_pxeog8.png" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.5) grayscale(.4);" alt="">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+              <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1780598340/CASE-7304-VID-01_frame-end_hallway-footage-fragmen_z0olgc.mp4" type="video/mp4">
+            </video>
             <div class="vcard-scanlines"></div>
-            <div class="vcard-lock-overlay"><div class="vcard-lock-icon">⊠</div><div class="vcard-lock-label">Access Restricted</div></div>
+            <div class="vcard-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+            <div class="vcard-stamp">REC · VID-04</div>
+            <div class="vcard-thumb">
+              <img src="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1780598280/CASE-7304-VID-01_frame-end_hallway-footage-fragmen_pxeog8.png" alt="VID-04">
+              <div class="vcard-thumb-overlay"><div class="vcard-play-btn">▶</div></div>
+            </div>
+            <button class="vcard-mute">♪ OFF</button>
           </div>
           <div class="vcard-info">
             <div class="vcard-id">CASE-7304-VID-04</div>
             <div class="vcard-title">Hallway Footage Fragment</div>
-            <div class="vcard-badges"><span class="badge b-rest">Restricted</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">Sep 2026</span></div>
+            <div class="vcard-badges"><span class="badge b-open">Public</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">Sep 2026 · 319 BX</span></div>
           </div>
         </div>
 
