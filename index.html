@@ -893,16 +893,6 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
         <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag lf-new">New</span></div>
       </div>
 
-      <!-- EXT-6729 -->
-      <div class="log-row" onclick="goExtView('EXT-6729')" style="border-left-color:var(--ext-green2)">
-        <div class="log-tag" style="color:var(--ext-green2)">EXT</div>
-        <div class="log-body">
-          <div class="log-id" style="color:var(--ext-green2)">EXT-6729 — External Occurrence Files</div>
-          <div class="log-title">Campo Largo Field-Lights Occurrence</div>
-          <div class="log-sub">→ Archive → EXT Files · Campo Largo, PR · 31 May 2026</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag" style="color:var(--ext-green3);border-color:var(--ext-green)">New</span></div>
-      </div>
 
       <div class="log-row" onclick="goVideoSection()">
         <div class="log-tag">VID</div>
@@ -975,7 +965,6 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
       </div>
       <div class="sblock">
         <div class="sblock-title">Quick Access</div>
-        <div class="quick-link" onclick="goExtView('EXT-6729')" style="color:var(--ext-green2)">EXT-6729 — Campo Largo Occurrence</div>
         <div class="quick-link" onclick="goEntView('ENT-SUBJ-4827')">ENT-SUBJ-4827 — Caio Floriano</div>
         <div class="quick-link" onclick="goCaseView('DOS-CASE-7304')">DOS-CASE-7304 — Floriano Incident</div>
         <div class="quick-link" onclick="goVideoSection()">CASE-7304-VID-03 — New Video</div>
@@ -999,7 +988,6 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
     <button class="atab" id="atab-objects" onclick="archTab('objects',this)">Objects</button>
     <button class="atab" id="atab-families" onclick="archTab('families',this)">Families</button>
     <button class="atab" id="atab-materials" onclick="archTab('materials',this)">Materials</button>
-    <button class="atab ext-tab" id="atab-ext" onclick="archTab('ext',this)">EXT Files</button>
     <button class="atab" id="atab-restricted" onclick="archTab('restricted',this)">Restricted</button>
   </div>
 
@@ -1199,49 +1187,6 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
     </div>
   </div>
 
-
-  <!-- EXT FILES -->
-  <div class="tab-pane" id="tab-ext">
-    <div style="margin-bottom:1.2rem;padding:.8rem 1rem;background:rgba(42,72,28,.1);border:1px solid var(--ext-border);border-left:3px solid var(--ext-green2)">
-      <div style="font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ext-green2);margin-bottom:.4rem">⊕ External Occurrence Files</div>
-      <p style="font-size:10px;color:var(--ivory4);line-height:1.85;max-width:680px">EXT files are fictionalized archival interpretations of public-origin events. They document publicly circulated occurrences — civilian recordings, witness reports, institutional responses — processed through the OZE Registry lens. No divergent classification is confirmed unless explicitly stated. These files do not constitute proof of any kind.</p>
-    </div>
-    <div id="ext-list">
-      <div class="ext-card" onclick="goExtView('EXT-6729')">
-        <div class="ext-tag">EXT</div>
-        <div class="ext-body">
-          <div class="ext-id">EXT-6729</div>
-          <div class="ext-title">Campo Largo Field-Lights Occurrence</div>
-          <div class="ext-meta">Campo Largo, Paraná, Brazil · 31 May 2026 · 319 BX · Open-source public media</div>
-        </div>
-        <div class="ext-right">
-          <span class="badge b-ext">Open</span>
-          <span class="badge b-ext2">Disputed</span>
-          <span style="font-size:8px;color:var(--ivory4)">Not confirmed divergent</span>
-        </div>
-      </div>
-      <!-- ghost EXT entries -->
-      <div class="ext-card" style="opacity:.25;cursor:default;pointer-events:none">
-        <div class="ext-tag" style="color:var(--ext-border)">EXT</div>
-        <div class="ext-body">
-          <div class="ext-id" style="color:var(--ext-border)">EXT-░░░░</div>
-          <div class="ext-title" style="font-family:var(--mono);font-size:12px;color:var(--ivory4)">░░░░░░░░░░░░░░░░░░░░░░░░░</div>
-          <div class="ext-meta">Classification pending · Source review in progress</div>
-        </div>
-        <div class="ext-right"><span class="badge b-seal">Pending</span></div>
-      </div>
-      <div class="ext-card" style="opacity:.14;cursor:default;pointer-events:none">
-        <div class="ext-tag" style="color:var(--ext-border)">EXT</div>
-        <div class="ext-body">
-          <div class="ext-id" style="color:var(--ext-border)">EXT-░░░░</div>
-          <div class="ext-title" style="font-family:var(--mono);font-size:12px;color:var(--ivory4)">░░░░░░░░░░░░░░░░░</div>
-          <div class="ext-meta">Classification pending</div>
-        </div>
-        <div class="ext-right"><span class="badge b-seal">Pending</span></div>
-      </div>
-    </div>
-    <div id="ext-detail" style="display:none"></div>
-  </div>
 
   <!-- RESTRICTED -->
   <div class="tab-pane" id="tab-restricted">
@@ -2048,24 +1993,6 @@ function filterFolders(q) {
   });
 }
 
-// ══ EXT navigation ══
-function goExtView(id) {
-  nav('archive');
-  archTab('ext', document.getElementById('atab-ext'));
-  document.getElementById('ext-list').style.display = 'none';
-  const d = document.getElementById('ext-detail');
-  d.style.display = 'block';
-  d.innerHTML = buildExtDetail(id);
-  window.scrollTo(0, 0);
-}
-function backToExtList() {
-  document.getElementById('ext-list').style.display = '';
-  const d = document.getElementById('ext-detail');
-  d.style.display = 'none';
-  d.innerHTML = '';
-}
-
-// ══ EXT carousel — replaced by thumb grid ══
 
 // ══ BUILD EXT DETAIL ══
 function buildExtDetail(id) {
@@ -3189,16 +3116,6 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
         <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag lf-new">New</span></div>
       </div>
 
-      <!-- EXT-6729 -->
-      <div class="log-row" onclick="goExtView('EXT-6729')" style="border-left-color:var(--ext-green2)">
-        <div class="log-tag" style="color:var(--ext-green2)">EXT</div>
-        <div class="log-body">
-          <div class="log-id" style="color:var(--ext-green2)">EXT-6729 — External Occurrence Files</div>
-          <div class="log-title">Campo Largo Field-Lights Occurrence</div>
-          <div class="log-sub">→ Archive → EXT Files · Campo Largo, PR · 31 May 2026</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag" style="color:var(--ext-green3);border-color:var(--ext-green)">New</span></div>
-      </div>
 
       <div class="log-row" onclick="goVideoSection()">
         <div class="log-tag">VID</div>
@@ -3271,7 +3188,6 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
       </div>
       <div class="sblock">
         <div class="sblock-title">Quick Access</div>
-        <div class="quick-link" onclick="goExtView('EXT-6729')" style="color:var(--ext-green2)">EXT-6729 — Campo Largo Occurrence</div>
         <div class="quick-link" onclick="goEntView('ENT-SUBJ-4827')">ENT-SUBJ-4827 — Caio Floriano</div>
         <div class="quick-link" onclick="goCaseView('DOS-CASE-7304')">DOS-CASE-7304 — Floriano Incident</div>
         <div class="quick-link" onclick="goVideoSection()">CASE-7304-VID-03 — New Video</div>
@@ -3295,7 +3211,6 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
     <button class="atab" id="atab-objects" onclick="archTab('objects',this)">Objects</button>
     <button class="atab" id="atab-families" onclick="archTab('families',this)">Families</button>
     <button class="atab" id="atab-materials" onclick="archTab('materials',this)">Materials</button>
-    <button class="atab ext-tab" id="atab-ext" onclick="archTab('ext',this)">EXT Files</button>
     <button class="atab" id="atab-restricted" onclick="archTab('restricted',this)">Restricted</button>
   </div>
 
@@ -3495,49 +3410,6 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
     </div>
   </div>
 
-
-  <!-- EXT FILES -->
-  <div class="tab-pane" id="tab-ext">
-    <div style="margin-bottom:1.2rem;padding:.8rem 1rem;background:rgba(42,72,28,.1);border:1px solid var(--ext-border);border-left:3px solid var(--ext-green2)">
-      <div style="font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ext-green2);margin-bottom:.4rem">⊕ External Occurrence Files</div>
-      <p style="font-size:10px;color:var(--ivory4);line-height:1.85;max-width:680px">EXT files are fictionalized archival interpretations of public-origin events. They document publicly circulated occurrences — civilian recordings, witness reports, institutional responses — processed through the OZE Registry lens. No divergent classification is confirmed unless explicitly stated. These files do not constitute proof of any kind.</p>
-    </div>
-    <div id="ext-list">
-      <div class="ext-card" onclick="goExtView('EXT-6729')">
-        <div class="ext-tag">EXT</div>
-        <div class="ext-body">
-          <div class="ext-id">EXT-6729</div>
-          <div class="ext-title">Campo Largo Field-Lights Occurrence</div>
-          <div class="ext-meta">Campo Largo, Paraná, Brazil · 31 May 2026 · 319 BX · Open-source public media</div>
-        </div>
-        <div class="ext-right">
-          <span class="badge b-ext">Open</span>
-          <span class="badge b-ext2">Disputed</span>
-          <span style="font-size:8px;color:var(--ivory4)">Not confirmed divergent</span>
-        </div>
-      </div>
-      <!-- ghost EXT entries -->
-      <div class="ext-card" style="opacity:.25;cursor:default;pointer-events:none">
-        <div class="ext-tag" style="color:var(--ext-border)">EXT</div>
-        <div class="ext-body">
-          <div class="ext-id" style="color:var(--ext-border)">EXT-░░░░</div>
-          <div class="ext-title" style="font-family:var(--mono);font-size:12px;color:var(--ivory4)">░░░░░░░░░░░░░░░░░░░░░░░░░</div>
-          <div class="ext-meta">Classification pending · Source review in progress</div>
-        </div>
-        <div class="ext-right"><span class="badge b-seal">Pending</span></div>
-      </div>
-      <div class="ext-card" style="opacity:.14;cursor:default;pointer-events:none">
-        <div class="ext-tag" style="color:var(--ext-border)">EXT</div>
-        <div class="ext-body">
-          <div class="ext-id" style="color:var(--ext-border)">EXT-░░░░</div>
-          <div class="ext-title" style="font-family:var(--mono);font-size:12px;color:var(--ivory4)">░░░░░░░░░░░░░░░░░</div>
-          <div class="ext-meta">Classification pending</div>
-        </div>
-        <div class="ext-right"><span class="badge b-seal">Pending</span></div>
-      </div>
-    </div>
-    <div id="ext-detail" style="display:none"></div>
-  </div>
 
   <!-- RESTRICTED -->
   <div class="tab-pane" id="tab-restricted">
@@ -4344,24 +4216,6 @@ function filterFolders(q) {
   });
 }
 
-// ══ EXT navigation ══
-function goExtView(id) {
-  nav('archive');
-  archTab('ext', document.getElementById('atab-ext'));
-  document.getElementById('ext-list').style.display = 'none';
-  const d = document.getElementById('ext-detail');
-  d.style.display = 'block';
-  d.innerHTML = buildExtDetail(id);
-  window.scrollTo(0, 0);
-}
-function backToExtList() {
-  document.getElementById('ext-list').style.display = '';
-  const d = document.getElementById('ext-detail');
-  d.style.display = 'none';
-  d.innerHTML = '';
-}
-
-// ══ EXT carousel — replaced by thumb grid ══
 
 // ══ BUILD EXT DETAIL ══
 function buildExtDetail(id) {
