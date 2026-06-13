@@ -694,6 +694,176 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
   overflow: hidden;
   pointer-events: none;
 }
+
+
+
+
+
+/* ── THORN — Side Panel ── */
+#thorn-overlay {
+  display:none; position:fixed; inset:0; z-index:2000;
+  pointer-events:none;
+}
+#thorn-overlay.open { display:block; pointer-events:auto; }
+
+.thorn-backdrop {
+  position:absolute; inset:0;
+  background:rgba(0,0,0,.35);
+  opacity:0; transition:opacity .35s;
+  cursor:pointer;
+}
+#thorn-overlay.open .thorn-backdrop { opacity:1; }
+
+.thorn-panel {
+  position:fixed;
+  top:50%; right:2rem;
+  transform:translate(calc(100% + 3rem), -50%);
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+  width:320px;
+  height:88vh;
+  max-height:680px;
+  background:#0d0d0d;
+  border-radius:16px;
+  border:1px solid #2a2a2a;
+  box-shadow:0 24px 80px rgba(0,0,0,.8), 0 0 0 1px #1a1a1a;
+  display:flex; flex-direction:column;
+  overflow:hidden;
+}
+#thorn-overlay.open .thorn-panel {
+  transform:translate(0, -50%);
+}
+
+/* phone chrome inside panel */
+.thorn-notch {
+  height:28px; background:#0d0d0d;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.thorn-notch-pill { width:70px; height:5px; background:#1e1e1e; border-radius:3px; }
+.thorn-status {
+  padding:3px 18px 5px; display:flex;
+  justify-content:space-between; align-items:center;
+  flex-shrink:0; background:#0d0d0d;
+}
+.thorn-owner { font-family:-apple-system,sans-serif; font-size:12px; font-weight:600; color:#fff; }
+.thorn-clock { font-family:-apple-system,sans-serif; font-size:11px; color:#aaa; }
+
+.thorn-tabs {
+  display:flex; background:#0d0d0d;
+  border-bottom:1px solid #1e1e1e; flex-shrink:0;
+}
+.thorn-tab {
+  flex:1; padding:8px 4px; text-align:center;
+  font-family:-apple-system,sans-serif; font-size:11px;
+  color:#555; cursor:pointer; border:none; background:none;
+  border-bottom:2px solid transparent; transition:all .2s;
+}
+.thorn-tab.active { color:#fff; border-bottom-color:#fff; }
+
+.thorn-app-header {
+  background:#0d0d0d; padding:8px 18px 10px;
+  border-bottom:1px solid #1e1e1e; flex-shrink:0;
+}
+.thorn-app-title { font-family:-apple-system,sans-serif; font-size:20px; font-weight:700; color:#fff; }
+.thorn-app-sub { font-family:-apple-system,sans-serif; font-size:11px; color:#555; margin-top:1px; }
+
+.thorn-content { flex:1; overflow-y:auto; overflow-x:hidden; background:#000; }
+.thorn-content::-webkit-scrollbar { width:2px; }
+.thorn-content::-webkit-scrollbar-thumb { background:#222; }
+
+/* grid — square */
+.thorn-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:2px; padding:2px;
+  background:#000;
+}
+.thorn-thumb { aspect-ratio:1; overflow:hidden; cursor:pointer; background:#111; }
+.thorn-thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .15s; }
+.thorn-thumb:hover img { transform:scale(1.05); }
+
+/* chat rows */
+.thorn-chat-item {
+  display:flex; align-items:center; gap:12px;
+  padding:10px 16px; border-bottom:1px solid #1a1a1a;
+  cursor:pointer; transition:background .15s;
+}
+.thorn-chat-item:hover { background:#1a1a1a; }
+.thorn-chat-avatar { width:44px; height:44px; border-radius:50%; overflow:hidden; flex-shrink:0; background:#222; }
+.thorn-chat-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+.thorn-chat-info { flex:1; min-width:0; }
+.thorn-chat-name { font-family:-apple-system,sans-serif; font-size:14px; font-weight:600; color:#fff; margin-bottom:2px; }
+.thorn-chat-preview { font-family:-apple-system,sans-serif; font-size:12px; color:#666; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* note rows */
+.thorn-note-item {
+  padding:12px 16px; border-bottom:1px solid #1a1a1a;
+  cursor:pointer; transition:background .15s;
+}
+.thorn-note-item:hover { background:#1a1a1a; }
+.thorn-note-title { font-family:-apple-system,sans-serif; font-size:14px; font-weight:600; color:#fff; margin-bottom:3px; }
+.thorn-note-preview { font-family:-apple-system,sans-serif; font-size:12px; color:#666; }
+
+/* fullscreen view inside panel */
+.thorn-fullview {
+  display:none; position:absolute; inset:0;
+  background:#000; z-index:5; flex-direction:column;
+}
+.thorn-fullview.open { display:flex; }
+.thorn-fv-bar {
+  height:44px; padding:0 16px; background:#0d0d0d;
+  display:flex; align-items:center; gap:8px;
+  border-bottom:1px solid #1e1e1e; flex-shrink:0;
+}
+.thorn-fv-back {
+  background:none; border:none; color:#4a9eff;
+  font-family:-apple-system,sans-serif; font-size:15px;
+  cursor:pointer; padding:0; flex-shrink:0;
+}
+.thorn-fv-label {
+  font-family:-apple-system,sans-serif; font-size:13px;
+  color:#888; flex:1; text-align:center;
+}
+.thorn-fv-img-wrap {
+  flex:1; position:relative; background:#000;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; min-height:0;
+}
+.thorn-fv-img-wrap img {
+  max-width:100%; max-height:100%;
+  width:auto; height:auto;
+  display:block; object-fit:contain;
+}
+.thorn-fv-arrows {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 8px; pointer-events:none;
+}
+.thorn-fv-arrow {
+  width:34px; height:34px; border-radius:50%;
+  background:rgba(0,0,0,.55); border:none; color:#fff;
+  font-size:18px; cursor:pointer; pointer-events:auto;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.thorn-fv-counter {
+  height:30px; display:flex; align-items:center; justify-content:center;
+  font-family:-apple-system,sans-serif; font-size:11px; color:#555;
+  flex-shrink:0; background:#0d0d0d;
+}
+
+/* close strip */
+.thorn-close-strip {
+  padding:10px 16px; background:#0d0d0d;
+  border-top:1px solid #1e1e1e; flex-shrink:0;
+  display:flex; justify-content:flex-end;
+}
+.thorn-close-btn {
+  background:none; border:1px solid #333; color:#666;
+  font-family:var(--mono); font-size:8px; letter-spacing:.15em;
+  padding:5px 14px; cursor:pointer; text-transform:uppercase;
+  transition:all .2s;
+}
+.thorn-close-btn:hover { border-color:#666; color:#fff; }
+
 </style>
 </head>
 <body>
@@ -1776,6 +1946,26 @@ function buildCaseDetail(caseId) {
     {id:'CASE-7304-OBJ4819-07',title:`Recovery Site — Burial Context`,url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-OBJ4819-07_recovery-site-burial-context_nnvg1x.png'}
   ]),
   ].join('') + `
+
+  <!-- CLASSIFIED SECTION -->
+  <div style="margin-top:2rem;border-top:1px solid var(--borderred);padding-top:1.2rem;">
+    <div style="font-family:var(--mono);font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--red2);margin-bottom:.6rem;">
+      ◈ CLASSIFIED ACCESS — AUTHORIZATION REQUIRED
+    </div>
+    <div style="font-size:10px;color:var(--ivory4);line-height:1.8;margin-bottom:1.2rem;max-width:480px;">
+      Five classified files exist within this dossier. Each requires a distinct authorization code. Codes are embedded within the public record.
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+      <span style="font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--ivory4);width:22px;flex-shrink:0;">01</span>
+      <input id="pwd-global-input" type="text" placeholder="AUTHORIZATION CODE" autocomplete="off"
+        style="background:transparent;border:1px solid var(--borderred);color:var(--ivory);font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:5px 10px;outline:none;width:220px;text-transform:uppercase;"
+        onkeydown="if(event.key===\'Enter\')checkGlobalPassword(this.value)">
+      <button onclick="checkGlobalPassword(document.getElementById(\'pwd-global-input\').value)"
+        style="background:none;border:1px solid var(--borderred);color:var(--red2);font-family:var(--mono);font-size:7px;letter-spacing:.15em;text-transform:uppercase;padding:5px 10px;cursor:pointer;">Submit</button>
+    </div>
+    <div id="pwd-global-error" style="display:none;font-size:9px;color:var(--red2);letter-spacing:.1em;margin-top:4px;margin-left:30px;">Code not recognized.</div>
+  </div>
+
   <div class="folder-row" style="opacity:.22;border:1px solid var(--borderred);margin-bottom:2px;">
     <div class="folder-head" style="cursor:default;border-left:3px solid var(--red);padding:.62rem .9rem;background:var(--bgcard);display:flex;align-items:center;gap:.7rem;">
       <span style="color:var(--red2);font-size:10px;flex-shrink:0;">◈</span>
@@ -2305,16 +2495,34 @@ function tryPassword(folderId) {
   var val = input.value.trim().toUpperCase();
   var correct = FOLDER_PASSWORDS[folderId];
   if (val === correct) {
-    error.classList.remove('visible');
-    success.classList.add('visible');
+    if (error) error.classList.remove('visible');
+    if (success) success.classList.add('visible');
     var unlocked = getUnlocked();
     if (!unlocked.includes(folderId)) unlocked.push(folderId);
     saveUnlocked(unlocked);
     setTimeout(function() { activateFolder(folderId); }, 600);
   } else {
-    error.classList.add('visible');
-    success.classList.remove('visible');
-    input.value = '';
+    if (error) error.classList.add('visible');
+    if (success) success.classList.remove('visible');
+    if (input) input.value = '';
+  }
+}
+function checkGlobalPassword(val) {
+  var err = document.getElementById('pwd-global-error');
+  val = (val || '').trim().toUpperCase();
+  // clear input
+  var inp = document.getElementById('pwd-global-input');
+  // Map of passwords to experience functions
+  var map = { 'THORN': function(){ openThorn(); } };
+  if (map[val]) {
+    if (inp) inp.value = '';
+    if (err) err.style.display = 'none';
+    map[val]();
+  } else {
+    if (err) {
+      err.style.display = 'inline';
+      setTimeout(function(){ err.style.display = 'none'; if (inp) inp.value = ''; }, 2000);
+    }
   }
 }
 
@@ -2372,10 +2580,291 @@ function restoreUnlocked() {
   resetIdle();
 })();
 
+
+// Keyboard nav
+document.addEventListener('keydown', function(e) {
+  var overlay = document.getElementById('thorn-overlay');
+  if (!overlay || !overlay.classList.contains('open')) return;
+  if (e.key === 'Escape') { closeThorn(); return; }
+  var fv = document.getElementById('thorn-fullview');
+  if (fv && fv.classList.contains('open')) {
+    if (e.key === 'ArrowLeft') thornNav(-1);
+    if (e.key === 'ArrowRight') thornNav(1);
+  }
+});
+function thornSetTab(tab, btn) {
+  document.querySelectorAll('.thorn-tab').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  thornBack();
+  var c = document.getElementById('thorn-content');
+  var title = document.getElementById('thorn-app-title');
+  var sub = document.getElementById('thorn-app-sub');
+  c.innerHTML = '';
+  var set, label;
+  if (tab === 'gallery') {
+    set = TG; label = 'Photos'; title.textContent = 'Recents'; sub.textContent = TG.length + ' items';
+    var grid = document.createElement('div');
+    grid.className = 'thorn-grid';
+    set.forEach(function(url, i) {
+      var d = document.createElement('div');
+      d.className = 'thorn-thumb';
+      var img = document.createElement('img');
+      img.src = url; img.loading = 'lazy';
+      img.addEventListener('click', function(){ thornOpenFv(set, i, label); });
+      d.appendChild(img); grid.appendChild(d);
+    });
+    c.appendChild(grid);
+  } else if (tab === 'chats') {
+    set = TC; label = 'Messages'; title.textContent = 'Messages'; sub.textContent = TC.length + ' conversations';
+    set.forEach(function(url, i) {
+      var d = document.createElement('div'); d.className = 'thorn-chat-item';
+      var av = document.createElement('div'); av.className = 'thorn-chat-avatar';
+      var img = document.createElement('img'); img.src = url; img.loading = 'lazy';
+      av.appendChild(img);
+      var info = document.createElement('div'); info.className = 'thorn-chat-info';
+      info.innerHTML = '<div class="thorn-chat-name">Conversation ' + (i+1) + '</div><div class="thorn-chat-preview">Tap to read</div>';
+      d.appendChild(av); d.appendChild(info);
+      d.addEventListener('click', function(){ thornOpenFv(set, i, label); });
+      c.appendChild(d);
+    });
+  } else if (tab === 'notes') {
+    set = TN; label = 'Notes'; title.textContent = 'Notes'; sub.textContent = TN.length + ' notes';
+    set.forEach(function(url, i) {
+      var d = document.createElement('div'); d.className = 'thorn-note-item';
+      d.innerHTML = '<div class="thorn-note-title">Note ' + (i+1) + '</div><div class="thorn-note-preview">Tap to open</div>';
+      d.addEventListener('click', function(){ thornOpenFv(set, i, label); });
+      c.appendChild(d);
+    });
+  }
+}
+
+
+// ══ THORN ══
+var TG=[
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385915/CASE-7304-THORN-SCR-GALLERY-039_t61fjx.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385906/CASE-7304-THORN-SCR-GALLERY-060_ot5yyd.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385907/CASE-7304-THORN-SCR-GALLERY-064_zoknqd.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385913/CASE-7304-THORN-SCR-GALLERY-018_cnxhy2.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385914/CASE-7304-THORN-SCR-GALLERY-029_jyyjdi.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385922/CASE-7304-THORN-SCR-GALLERY-020_dedjyb.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385924/CASE-7304-THORN-SCR-GALLERY-045_mtkpzk.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385905/CASE-7304-THORN-SCR-GALLERY-054_id45qh.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385921/CASE-7304-THORN-SCR-GALLERY-019_ukqjoo.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385923/CASE-7304-THORN-SCR-GALLERY-031_i5obwp.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385924/CASE-7304-THORN-SCR-GALLERY-042_d5xn4b.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385920/CASE-7304-THORN-SCR-GALLERY-003_yu5mvh.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385913/CASE-7304-THORN-SCR-GALLERY-021_ual3jg.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385906/CASE-7304-THORN-SCR-GALLERY-058_z0squs.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385910/CASE-7304-THORN-SCR-GALLERY-006_wbbpqs.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385917/CASE-7304-THORN-SCR-GALLERY-068_t5irqb.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385909/CASE-7304-THORN-SCR-GALLERY-001_swtoos.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385920/CASE-7304-THORN-SCR-GALLERY-013_hta0i8.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385916/CASE-7304-THORN-SCR-GALLERY-065_odrecb.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385922/CASE-7304-THORN-SCR-GALLERY-024_xhanxe.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385922/CASE-7304-THORN-SCR-GALLERY-028_oyhhrc.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385906/CASE-7304-THORN-SCR-GALLERY-056_bwxa6p.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385915/CASE-7304-THORN-SCR-GALLERY-036_jg2qsp.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385922/CASE-7304-THORN-SCR-GALLERY-022_zcddsz.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385916/CASE-7304-THORN-SCR-GALLERY-067_ufzdfx.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385907/CASE-7304-THORN-SCR-GALLERY-062_mjon4b.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385905/CASE-7304-THORN-SCR-GALLERY-051_b5ofah.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385912/CASE-7304-THORN-SCR-GALLERY-016_spwtph.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385923/CASE-7304-THORN-SCR-GALLERY-040_iece1m.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385907/CASE-7304-THORN-SCR-GALLERY-070_twglq6.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385906/CASE-7304-THORN-SCR-GALLERY-059_kz2r1v.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385911/CASE-7304-THORN-SCR-GALLERY-014_xc21od.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385908/CASE-7304-THORN-SCR-GALLERY-077_x4k6yi.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385909/CASE-7304-THORN-SCR-GALLERY-005_hcds5y.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385908/CASE-7304-THORN-SCR-GALLERY-081_qaaqoh.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385906/CASE-7304-THORN-SCR-GALLERY-061_gyn6xq.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385908/CASE-7304-THORN-SCR-GALLERY-075_y6jnlw.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385920/CASE-7304-THORN-SCR-GALLERY-000_egqmu9.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385905/CASE-7304-THORN-SCR-GALLERY-050_xunabj.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385917/CASE-7304-THORN-SCR-GALLERY-073_ttjomn.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385911/CASE-7304-THORN-SCR-GALLERY-010_vht8me.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385915/CASE-7304-THORN-SCR-GALLERY-034_kv6ufx.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385920/CASE-7304-THORN-SCR-GALLERY-092_ejcvz0.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385911/CASE-7304-THORN-SCR-GALLERY-011_cllgmu.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385914/CASE-7304-THORN-SCR-GALLERY-027_nnv57y.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385909/CASE-7304-THORN-SCR-GALLERY-002_qwp4tb.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385912/CASE-7304-THORN-SCR-GALLERY-017_uqfkya.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385918/CASE-7304-THORN-SCR-GALLERY-079_ygvv1a.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385911/CASE-7304-THORN-SCR-GALLERY-012_qa8y8s.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385908/CASE-7304-THORN-SCR-GALLERY-078_vifeaq.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385905/CASE-7304-THORN-SCR-GALLERY-053_izril6.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385923/CASE-7304-THORN-SCR-GALLERY-041_vuafci.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385905/CASE-7304-THORN-SCR-GALLERY-052_xgjmmz.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385905/CASE-7304-THORN-SCR-GALLERY-055_wjjlgr.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385918/CASE-7304-THORN-SCR-GALLERY-084_zk1qcp.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385914/CASE-7304-THORN-SCR-GALLERY-023_z31jc1.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385919/CASE-7304-THORN-SCR-GALLERY-085_lihwrp.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385910/CASE-7304-THORN-SCR-GALLERY-008_ajrjfb.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385907/CASE-7304-THORN-SCR-GALLERY-063_fzy89x.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385907/CASE-7304-THORN-SCR-GALLERY-069_x6mjee.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385908/CASE-7304-THORN-SCR-GALLERY-082_ahksxe.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385910/CASE-7304-THORN-SCR-GALLERY-007_pgcgh1.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385923/CASE-7304-THORN-SCR-GALLERY-032_osxkjm.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385908/CASE-7304-THORN-SCR-GALLERY-083_xajzqq.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385919/CASE-7304-THORN-SCR-GALLERY-088_jbybvu.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385918/CASE-7304-THORN-SCR-GALLERY-080_hvfpaj.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385914/CASE-7304-THORN-SCR-GALLERY-025_vxakda.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385919/CASE-7304-THORN-SCR-GALLERY-091_mtoydb.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385916/CASE-7304-THORN-SCR-GALLERY-043_p6tg0z.png"
+];
+var TC=[
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386702/CASE-7304-THORN-SCR-CHATS-02_ub33nt.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386704/CASE-7304-THORN-SCR-CHATS-03_knchxt.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386703/CASE-7304-THORN-SCR-CHATS-04_prou06.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386703/CASE-7304-THORN-SCR-CHATS-05_s7bwpo.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386703/CASE-7304-THORN-SCR-CHATS-06_bpvqj6.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386702/CASE-7304-THORN-SCR-CHATS-07_n8qyon.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386703/CASE-7304-THORN-SCR-CHATS-08_megpsp.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386704/CASE-7304-THORN-SCR-CHATS-09_qaqcae.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386705/CASE-7304-THORN-SCR-CHATS-10_isnxbk.png"
+];
+var TN=[
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-THORN-SCR-NOTES-000_mpl8s1.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-THORN-SCR-NOTES-001_kc6qu3.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-THORN-SCR-NOTES-002_mdkt1k.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-THORN-SCR-NOTES-003_tyjihm.png",
+  "https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-THORN-SCR-NOTES-004_ptlq2c.png"
+];
+var _fvSet=[],_fvIdx=0;
+function openThorn(){
+  var o=document.getElementById('thorn-overlay');
+  if(o){o.classList.add('open');document.body.style.overflow='hidden';
+  thornSetTab('gallery',document.querySelector('.thorn-tab'));}
+}
+function closeThorn(){
+  var o=document.getElementById('thorn-overlay');
+  if(o)o.classList.remove('open');
+  document.body.style.overflow='';
+  thornBack();
+}
+function thornSetTab(tab,btn){
+  document.querySelectorAll('.thorn-tab').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  thornBack();
+  var c=document.getElementById('thorn-content');
+  var ttl=document.getElementById('thorn-app-title');
+  var sub=document.getElementById('thorn-app-sub');
+  if(!c)return;
+  c.innerHTML='';
+  if(tab==='gallery'){
+    if(ttl)ttl.textContent='Recents';
+    if(sub)sub.textContent=TG.length+' items';
+    var g=document.createElement('div');g.className='thorn-grid';
+    TG.forEach(function(url,i){
+      var d=document.createElement('div');d.className='thorn-thumb';
+      var img=document.createElement('img');img.src=url;img.loading='lazy';
+      img.addEventListener('click',(function(n){return function(){thornOpenFv(TG,n,'Photos');};})(i));
+      d.appendChild(img);g.appendChild(d);
+    });
+    c.appendChild(g);
+  } else if(tab==='chats'){
+    if(ttl)ttl.textContent='Messages';
+    if(sub)sub.textContent=TC.length+' conversations';
+    TC.forEach(function(url,i){
+      var d=document.createElement('div');d.className='thorn-chat-item';
+      var av=document.createElement('div');av.className='thorn-chat-avatar';
+      var img=document.createElement('img');img.src=url;img.loading='lazy';
+      av.appendChild(img);
+      var inf=document.createElement('div');inf.className='thorn-chat-info';
+      inf.innerHTML='<div class="thorn-chat-name">Conversation '+(i+1)+'</div><div class="thorn-chat-preview">Tap to open</div>';
+      d.appendChild(av);d.appendChild(inf);
+      d.addEventListener('click',(function(n){return function(){thornOpenFv(TC,n,'Messages');};})(i));
+      c.appendChild(d);
+    });
+  } else if(tab==='notes'){
+    if(ttl)ttl.textContent='Notes';
+    if(sub)sub.textContent=TN.length+' notes';
+    TN.forEach(function(url,i){
+      var d=document.createElement('div');d.className='thorn-note-item';
+      d.innerHTML='<div class="thorn-note-title">Note '+(i+1)+'</div><div class="thorn-note-preview">Tap to open</div>';
+      d.addEventListener('click',(function(n){return function(){thornOpenFv(TN,n,'Notes');};})(i));
+      c.appendChild(d);
+    });
+  }
+}
+function thornOpenFv(set,idx,label){
+  _fvSet=set;_fvIdx=idx;
+  var fv=document.getElementById('thorn-fullview');
+  if(fv)fv.classList.add('open');
+  var lb=document.getElementById('thorn-fv-label');
+  if(lb&&label)lb.textContent=label;
+  thornRender();
+}
+function thornBack(){
+  var fv=document.getElementById('thorn-fullview');
+  if(fv)fv.classList.remove('open');
+}
+function thornNav(dir){
+  if(!_fvSet.length)return;
+  _fvIdx=(_fvIdx+dir+_fvSet.length)%_fvSet.length;
+  thornRender();
+}
+function thornRender(){
+  var img=document.getElementById('thorn-fv-img');
+  var ctr=document.getElementById('thorn-fv-counter');
+  if(img)img.src=_fvSet[_fvIdx];
+  if(ctr)ctr.textContent=(_fvIdx+1)+' / '+_fvSet.length;
+}
+document.addEventListener('keydown',function(e){
+  var o=document.getElementById('thorn-overlay');
+  if(!o||!o.classList.contains('open'))return;
+  if(e.key==='Escape'){closeThorn();return;}
+  var fv=document.getElementById('thorn-fullview');
+  if(fv&&fv.classList.contains('open')){
+    if(e.key==='ArrowLeft')thornNav(-1);
+    if(e.key==='ArrowRight')thornNav(1);
+  }
+});
+
 </script>
 
 <!-- idle secret -->
 <div class="idle-secret" id="idle-secret">// NIGRA</div>
+<!-- THORN OVERLAY — side panel -->
+<div id="thorn-overlay">
+  <div class="thorn-backdrop" onclick="closeThorn()"></div>
+  <div class="thorn-panel">
+    <div class="thorn-notch"><div class="thorn-notch-pill"></div></div>
+    <div class="thorn-status">
+      <span class="thorn-owner">N. Ramos</span>
+      <span class="thorn-clock">●●● 9:41</span>
+    </div>
+    <div class="thorn-tabs">
+      <button class="thorn-tab active" onclick="thornSetTab('gallery',this)">Photos</button>
+      <button class="thorn-tab" onclick="thornSetTab('chats',this)">Chats</button>
+      <button class="thorn-tab" onclick="thornSetTab('notes',this)">Notes</button>
+    </div>
+    <div class="thorn-app-header">
+      <div class="thorn-app-title" id="thorn-app-title">Recents</div>
+      <div class="thorn-app-sub" id="thorn-app-sub">93 items</div>
+    </div>
+    <div class="thorn-content" id="thorn-content"></div>
+    <div class="thorn-close-strip">
+      <button class="thorn-close-btn" onclick="closeThorn()">✕ Close</button>
+    </div>
+
+    <!-- fullscreen -->
+    <div class="thorn-fullview" id="thorn-fullview">
+      <div class="thorn-fv-bar">
+        <button class="thorn-fv-back" onclick="thornBack()">‹ Back</button>
+        <span class="thorn-fv-label" id="thorn-fv-label"></span>
+      </div>
+      <div class="thorn-fv-img-wrap">
+        <img id="thorn-fv-img" src="" alt="">
+        <div class="thorn-fv-arrows">
+          <button class="thorn-fv-arrow" onclick="thornNav(-1)">‹</button>
+          <button class="thorn-fv-arrow" onclick="thornNav(1)">›</button>
+        </div>
+      </div>
+      <div class="thorn-fv-counter" id="thorn-fv-counter"></div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
 
