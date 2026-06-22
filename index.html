@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1498,9 +1498,367 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
 .gr-footer{text-align:center;flex-shrink:0;padding:4px 0 0;}
 .gr-counter{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:rgba(180,140,70,.32);}
 
+/* ── ACCESS GATE ── */
+#access-gate{
+  position:fixed;inset:0;z-index:9000;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .7s ease;
+}
+#access-gate.dismissing{opacity:0;pointer-events:none;}
+#access-gate.gone{display:none;}
+.gate-inner{
+  max-width:460px;width:90%;
+  border:1px solid var(--borderred);
+  background:var(--bgcard);
+  padding:2rem 2.4rem;
+}
+.gate-header{
+  font-family:var(--mono);font-size:8px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ivory4);margin-bottom:1.4rem;padding-bottom:.6rem;
+  border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.gate-header .gh-right{color:var(--red2);}
+.gate-lines{
+  font-family:var(--mono);font-size:11px;color:var(--ivory3);
+  min-height:5.5rem;margin-bottom:1.1rem;letter-spacing:.03em;line-height:2.1;
+}
+.gate-line{display:block;opacity:0;transition:opacity .15s;}
+.gate-line.visible{opacity:1;}
+.gate-line.ok{color:#5a9a5a;}
+.gate-line.warn{color:var(--gold2);}
+.gate-bar-wrap{border:1px solid var(--border2);height:2px;margin-bottom:.9rem;overflow:hidden;}
+.gate-bar-fill{height:100%;width:0%;background:var(--red2);transition:width .04s linear;}
+.gate-status{
+  font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ivory4);text-align:right;height:14px;transition:color .3s;
+}
+.gate-status.granted{color:#5a9a5a;}
+
+/* ── FEATURED TRANSMISSION ── */
+.featured-tx{
+  border:1px solid var(--border2);
+  border-left:3px solid var(--red2);
+  background:var(--bgcard);
+  padding:1.4rem 1.6rem;
+  margin-bottom:.7rem;
+  min-height:180px;
+  transition:border-left-color .3s;
+}
+.ftx-flag{
+  font-family:var(--mono);font-size:7px;letter-spacing:.15em;text-transform:uppercase;
+  padding:2px 8px;border:1px solid;
+}
+
+/* ── SYSTEM STATUS ── */
+.sys-row{
+  display:grid;grid-template-columns:1fr auto;
+  border-bottom:1px solid var(--border);padding:.36rem 0;align-items:center;
+}
+.sys-row:last-child{border-bottom:none;}
+.sys-key{font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--ivory4);}
+.sys-val{font-size:10px;color:var(--ivory2);text-align:right;font-family:var(--mono);}
+.sys-val.offline{color:var(--red2);}
+.sys-val.ok{color:#5a9a5a;}
+.sys-val.warn{color:var(--gold2);}
+.sys-val.sealed{color:var(--ivory4);letter-spacing:.05em;}
+.sys-uptime{
+  margin-top:.6rem;border-top:1px solid var(--border);padding-top:.55rem;
+}
+.sys-uptime-label{font-size:7px;letter-spacing:.22em;text-transform:uppercase;color:var(--ivory4);margin-bottom:2px;}
+.sys-uptime-val{font-size:10px;color:var(--ivory3);font-family:var(--mono);letter-spacing:.04em;}
+
+/* ── HOME PAGE — NO SCROLL ── */
+body:has(#page-home.active){overflow:hidden;height:100vh;}
+footer{flex-shrink:0;}
+#page-home.active{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  min-height:0;
+  overflow:hidden;
+  padding-bottom:0;
+}
+#page-home .wrap{
+  position:relative;
+  z-index:1;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  padding-bottom:0;
+}
+#page-home .home-hero{
+  padding:1.2rem 0 1rem;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+#page-home .home-grid{
+  flex:1;
+  overflow:hidden;
+  min-height:0;
+  margin-top:1rem;
+  align-items:stretch;
+  gap:1rem;
+}
+#page-home .home-grid > div:first-child{
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  min-height:0;
+}
+#page-home .sidebar{overflow-y:auto;overflow-x:hidden;}
+
+/* ── CAMERA PANEL — 9-grid surveillance ── */
+.cam-panel{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(3,1fr);
+  gap:2px;
+  flex:1;
+  min-height:0;
+  background:var(--bg);
+}
+/* ── HOME TICKER ── */
+.cam-ticker-wrap{
+  flex-shrink:0;
+  overflow:hidden;
+  white-space:nowrap;
+  border-bottom:1px solid var(--border);
+  padding:3px 0;
+  font-family:var(--mono);
+  font-size:6.5px;
+  letter-spacing:.16em;
+  color:var(--ivory4);
+  text-transform:uppercase;
+  opacity:.55;
+}
+.cam-ticker-inner{
+  display:inline-block;
+  animation:ticker-scroll 60s linear infinite;
+  white-space:nowrap;
+}
+@keyframes ticker-scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ── ARCHIVE — integrity bars ── */
+.cc-integrity{
+  grid-column:1/-1;
+  height:2px;
+  background:var(--bg3);
+  position:relative;
+}
+.cc-integrity::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;
+  height:100%;
+  width:var(--iw,40%);
+  background:var(--icol,var(--border));
+}
+
+/* ── ARCHIVE — scan flash on filter ── */
+.archive-tab-area{position:relative;overflow:hidden;}
+@keyframes archive-scan{
+  0%{top:-60px;opacity:0;}
+  20%{opacity:.06;}
+  100%{top:110%;opacity:0;}
+}
+.arch-scan-line{
+  position:absolute;left:0;right:0;height:60px;
+  background:linear-gradient(to bottom,transparent,rgba(232,226,212,.15),transparent);
+  pointer-events:none;z-index:10;
+  animation:archive-scan .55s ease forwards;
+}
+
+/* ── ARCHIVE — access denied flash ── */
+#case-denied-flash{
+  position:fixed;inset:0;
+  background:rgba(139,26,26,.1);
+  z-index:800;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;opacity:0;transition:opacity .07s;
+}
+#case-denied-flash.show{opacity:1;}
+.case-denied-msg{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--red2);
+  border:1px solid var(--borderred);
+  padding:.55rem 1.1rem;background:var(--bgcard);
+}
+
+/* ── ENTITY — avistamento heatmap ── */
+.sighting-heatmap{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  gap:2px;margin-top:.4rem;
+}
+.hm-cell{height:8px;background:var(--bg3);}
+.hm-cell.hm-low{background:rgba(139,26,26,.22);}
+.hm-cell.hm-mid{background:rgba(139,26,26,.52);}
+.hm-cell.hm-high{background:rgba(165,32,32,.88);}
+
+/* ── ENTITY — anomaly arc ── */
+.anomaly-arc-wrap{text-align:center;padding:.7rem 0 .2rem;}
+.anomaly-arc-val{
+  font-family:var(--mono);font-size:15px;color:var(--red2);
+  display:block;margin-top:-2px;
+}
+.anomaly-arc-label{
+  font-size:6.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ivory4);
+}
+
+/* ── VIDEO — HUD timestamp overlay ── */
+.vcard-hud{position:absolute;inset:0;pointer-events:none;z-index:5;}
+.vcard-hud-ts{
+  position:absolute;top:6px;left:8px;
+  font-family:var(--mono);font-size:6px;letter-spacing:.09em;
+  color:rgba(165,50,50,.85);background:rgba(8,9,12,.72);padding:1px 4px;
+}
+.vcard-hud-cam{
+  position:absolute;top:6px;right:8px;
+  font-family:var(--mono);font-size:6px;letter-spacing:.09em;
+  color:rgba(165,50,50,.85);background:rgba(8,9,12,.72);padding:1px 4px;
+}
+.vcard-hud-coord{
+  position:absolute;bottom:26px;right:7px;
+  font-family:var(--mono);font-size:5px;letter-spacing:.07em;
+  color:rgba(139,26,26,.5);
+}
+
+/* ── ABOUT — institution timeline ── */
+.inst-timeline{
+  margin:1.2rem 0;border-left:1px solid var(--borderred);padding-left:1.2rem;
+}
+.inst-tl-item{margin-bottom:1.1rem;position:relative;}
+.inst-tl-item::before{
+  content:'';position:absolute;left:-1.44rem;top:4px;
+  width:5px;height:5px;border-radius:50%;
+  background:var(--bg3);border:1px solid var(--borderred);
+}
+.inst-tl-item.key-evt::before{background:var(--red2);}
+.inst-tl-year{
+  font-family:var(--mono);font-size:7px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ivory4);margin-bottom:2px;
+}
+.inst-tl-title{font-family:var(--serif);font-size:14px;color:var(--ivory2);margin-bottom:2px;}
+.inst-tl-desc{font-size:9px;color:var(--ivory4);line-height:1.75;}
+.inst-tl-item.sealed-evt .inst-tl-title{
+  color:var(--border3);font-family:var(--mono);font-size:9px;letter-spacing:.04em;
+}
+
+/* ── ABOUT — organogram ── */
+.org-chart{margin:1.2rem 0;font-family:var(--mono);font-size:9px;}
+.org-row{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.6rem;flex-wrap:wrap;}
+.org-node{
+  border:1px solid var(--border2);padding:.4rem .65rem;
+  background:var(--bgcard);min-width:120px;
+}
+.org-node.org-top{border-color:var(--borderred);background:rgba(139,26,26,.05);}
+.org-node-id{font-size:6px;letter-spacing:.15em;text-transform:uppercase;color:var(--ivory4);margin-bottom:2px;}
+.org-node-name{font-size:9px;color:var(--ivory2);}
+.org-redacted{color:var(--border3);}
+.org-tree{color:var(--border2);font-family:var(--mono);font-size:9px;padding-left:.4rem;line-height:2.2;}
+.dispatch-ref{
+  font-family:var(--mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ivory4);opacity:.55;
+}
+
+/* ── DISPATCH SCREENS ── */
+.ds-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.55rem 1rem;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.ds-type{font-family:var(--mono);font-size:7px;letter-spacing:.22em;text-transform:uppercase;color:var(--ivory4);}
+.ds-era{font-family:var(--mono);font-size:8px;color:var(--ivory4);letter-spacing:.08em;}
+.ds-title{
+  font-family:var(--serif);font-size:clamp(13px,1.6vw,18px);font-weight:300;
+  color:var(--ivory2);padding:.4rem 1rem;border-bottom:1px solid var(--border);
+  flex-shrink:0;line-height:1.2;
+}
+.dispatch-screens{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:2px;
+  flex:1;min-height:0;
+  background:var(--bg);
+}
+.dscreen{position:relative;overflow:hidden;background:#050507;}
+.dscreen-main{grid-row:1/3;}
+.dscreen video,.dscreen img{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+  filter:sepia(.15) brightness(.68) contrast(1.1);
+}
+.dscreen-scan{
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.09) 3px,rgba(0,0,0,.09) 4px);
+  pointer-events:none;z-index:2;
+}
+.dscreen-corners span{position:absolute;width:10px;height:10px;border-color:rgba(139,26,26,.55);border-style:solid;pointer-events:none;z-index:3;}
+.dscreen-corners span.tl{top:6px;left:6px;border-width:1px 0 0 1px;}
+.dscreen-corners span.tr{top:6px;right:6px;border-width:1px 1px 0 0;}
+.dscreen-corners span.bl{bottom:6px;left:6px;border-width:0 0 1px 1px;}
+.dscreen-corners span.br{bottom:6px;right:6px;border-width:0 1px 1px 0;}
+.dscreen-label{
+  position:absolute;bottom:6px;left:7px;z-index:4;
+  font-family:var(--mono);font-size:6px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--redstamp);
+  background:rgba(8,9,12,.8);padding:2px 5px;
+  border:1px solid var(--borderred);
+}
+.ds-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.45rem 1rem;border-top:1px solid var(--border);flex-shrink:0;
+}
+
+/* ── LOG FEED BACKDROP ── */
+#home-log-feed{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+  opacity:0.035;
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--ivory);
+  line-height:1.75;
+  padding:10px 16px;
+  white-space:pre;
+  letter-spacing:.03em;
+  user-select:none;
+  will-change:transform;
+}
+
+/* ── SUPPRESS BROWSER VIDEO OVERLAYS (Opera PiP / media buttons) ── */
+video::-webkit-media-controls{display:none!important;}
+video::-webkit-media-controls-enclosure{display:none!important;}
+video::-webkit-media-controls-panel{display:none!important;}
+video::-webkit-media-controls-overlay-play-button{display:none!important;}
+video::-webkit-media-controls-start-playback-button{display:none!important;}
+video::--webkit-media-controls-play-button{display:none!important;}
+
 </style>
 </head>
 <body>
+
+<!-- ══ ACCESS DENIED FLASH ══ -->
+<div id="case-denied-flash"><div class="case-denied-msg">// ACCESS DENIED — AUTHORIZATION LEVEL INSUFFICIENT</div></div>
+
+<!-- ══ ACCESS GATE ══ -->
+<div id="access-gate">
+  <div class="gate-inner">
+    <div class="gate-header">
+      <span>OZE Registry Office — Public Terminal</span>
+      <span class="gh-right">◈ SECURE</span>
+    </div>
+    <div class="gate-lines" id="gate-lines"></div>
+    <div class="gate-bar-wrap"><div class="gate-bar-fill" id="gate-bar"></div></div>
+    <div class="gate-status" id="gate-status">&nbsp;</div>
+  </div>
+</div>
 
 <header class="hdr">
   <div class="hdr-in">
@@ -1528,370 +1886,47 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
 
 <!-- ══ HOME ══ -->
 <div class="page active" id="page-home">
+<div id="home-log-feed"></div>
 <div class="wrap">
-  <section style="padding:3rem 0 2.5rem;border-bottom:1px solid var(--border);margin-bottom:0;">
+  <section class="home-hero">
     <div class="terminal-pre">Public Access Terminal — Authorized Viewing Mode</div>
-    <h1 class="terminal-h">OZE Registry Office</h1>
+    <h1 class="terminal-h" id="homeTitle">OZE Registry Office</h1>
     <p class="terminal-sub">Official Registry of Divergent Occurrences</p>
-    <div class="terminal-tag">Public Access Terminal</div>
-
-
-    <div class="srch" style="margin-bottom:1rem;">
-      <span class="srch-icon">⌕</span>
-      <input type="text" placeholder="Search registry..." id="homeSearch" onkeydown="homeSearchKey(event)">
-      <span class="srch-stat">Indexing public copy<span class="cursor"></span></span>
-    </div>
-    <div class="qbtns">
-      <button class="qbtn" onclick="nav('archive')">Search Registry</button>
-      <button class="qbtn" onclick="goTab('entities')">Entity Index</button>
-      <button class="qbtn" onclick="goTab('dossiers')">Open Dossiers</button>
-      <button class="qbtn" onclick="goTab('dossiers')">Registry Activity Log</button>
-      <button class="qbtn-dead">Cross-Ref Scan</button>
-      <button class="qbtn-dead">Integrity Check</button>
-      <button class="qbtn-dead">Decrypt Layer</button>
-    </div>
   </section>
 
   <div class="home-grid">
+    <!-- CAMERA SURVEILLANCE PANEL -->
     <div>
-      <div class="sec-lbl"><span>◈</span> Registry Activity Log — Recently Added</div>
-
-      <!-- ALL FOLDERS RELEASED -->
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_15')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_15 — DOS-CASE-7304</div>
-          <div class="log-title">ENT-OBJ-4819 — Original Floriano Sword</div>
-          <div class="log-sub">→ DOS-CASE-7304 → All Folders Released</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
+      <div class="cam-ticker-wrap">
+        <div class="cam-ticker-inner">⬥ SURVEILLANCE SYSTEM ACTIVE · OZE REGISTRY OFFICE · RESTRICTED PUBLIC ACCESS · CAMERAS: CONTINUOUS MONITORING · RECORDING IN PROGRESS · DATA NOT FILED IN ARCHIVE ⬥ SISTEMA DE VIGILÂNCIA ATIVO · OZE REGISTRY OFFICE · ACESSO PÚBLICO RESTRITO · CÂMERAS: MONITORAMENTO CONTÍNUO · GRAVAÇÃO EM ANDAMENTO · DADOS NÃO PUBLICADOS ⬥ SURVEILLANCE SYSTEM ACTIVE · OZE REGISTRY OFFICE · RESTRICTED PUBLIC ACCESS · CAMERAS: CONTINUOUS MONITORING · RECORDING IN PROGRESS · DATA NOT FILED IN ARCHIVE ⬥ SISTEMA DE VIGILÂNCIA ATIVO · OZE REGISTRY OFFICE · ACESSO PÚBLICO RESTRITO · CÂMERAS: MONITORAMENTO CONTÍNUO · GRAVAÇÃO EM ANDAMENTO · DADOS NÃO PUBLICADOS</div>
       </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_14')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_14 — DOS-CASE-7304</div>
-          <div class="log-title">Floriano Ruin Site — Post-Monument Manifestation</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_14</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_13')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_13 — DOS-CASE-7304</div>
-          <div class="log-title">Post-Incident — Second Activation</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_13</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_12')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_12 — DOS-CASE-7304</div>
-          <div class="log-title">Museum Incident — Night Report</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_12</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_11')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_11 — DOS-CASE-7304</div>
-          <div class="log-title">ENT-FAM-5408 — Acanthus / Ramos Lineage</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_11</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_10')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_10 — DOS-CASE-7304</div>
-          <div class="log-title">ENT-MAT-5384 — Rosa floriana nigra</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_10</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_09')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_09 — DOS-CASE-7304</div>
-          <div class="log-title">House Floriano — Lineage Dossier</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_09</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_08')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_08 — DOS-CASE-7304</div>
-          <div class="log-title">Beto Barros — Investigative Materials</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_08</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_07')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_07 — DOS-CASE-7304</div>
-          <div class="log-title">Student Forum Threads</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_07</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_06')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_06 — DOS-CASE-7304</div>
-          <div class="log-title">Suggestive Influence Report</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_06</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_05')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_05 — DOS-CASE-7304</div>
-          <div class="log-title">Behavioral Observation</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_05</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_04')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_04 — DOS-CASE-7304</div>
-          <div class="log-title">Nico Ramos — Personal Archive</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_04</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-
-      <!-- Videos — 6 public, updated 2026.06.11 -->
-      <div class="log-row log-new" onclick="goVideoSection()">
-        <div class="log-tag">VID</div>
-        <div class="log-body">
-          <div class="log-id">CASE-7304 — VID-05 · VID-15 · VID-22 · VID-29 · VID-36 · VID-43 · VID-50 · VID-57</div>
-          <div class="log-title">Video Records — 8 files public</div>
-          <div class="log-sub">→ DOS-CASE-7304 → Video Records</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.11</span><span class="log-flag lf-new">New</span></div>
-      </div>
-
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_15')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_15 — DOS-CASE-7304</div>
-          <div class="log-title">ENT-OBJ-4819 — Original Floriano Sword</div>
-          <div class="log-sub">→ DOS-CASE-7304 → All Folders Released</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_14')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_14 — DOS-CASE-7304</div>
-          <div class="log-title">Floriano Ruin Site — Post-Monument Manifestation</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_14</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_13')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_13 — DOS-CASE-7304</div>
-          <div class="log-title">Post-Incident — Second Activation</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_13</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_12')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_12 — DOS-CASE-7304</div>
-          <div class="log-title">Museum Incident — Night Report</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_12</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_11')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_11 — DOS-CASE-7304</div>
-          <div class="log-title">ENT-FAM-5408 — Acanthus / Ramos Lineage</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_11</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_10')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_10 — DOS-CASE-7304</div>
-          <div class="log-title">ENT-MAT-5384 — Rosa floriana nigra</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_10</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_09')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_09 — DOS-CASE-7304</div>
-          <div class="log-title">House Floriano — Lineage Dossier</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_09</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_08')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_08 — DOS-CASE-7304</div>
-          <div class="log-title">Beto Barros — Investigative Materials</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_08</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_07')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_07 — DOS-CASE-7304</div>
-          <div class="log-title">Student Forum Threads</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_07</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_06')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_06 — DOS-CASE-7304</div>
-          <div class="log-title">Suggestive Influence Report</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_06</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_05')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_05 — DOS-CASE-7304</div>
-          <div class="log-title">Behavioral Observation</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_05</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-      <div class="log-row log-new" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_04')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">FOLDER_04 — DOS-CASE-7304</div>
-          <div class="log-title">Nico Ramos — Personal Archive</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_04</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.06</span><span class="log-flag lf-new">New</span></div>
-      </div>
-
-      <!-- VID-01/02/04 released — most recent -->
-      <div class="log-row log-new" onclick="goVideoSection()">
-        <div class="log-tag">VID</div>
-        <div class="log-body">
-          <div class="log-id">CASE-7304-VID-01 — The Floriano Museum Incident</div>
-          <div class="log-title">Museum Security Feed Fragment — Released</div>
-          <div class="log-sub">→ DOS-CASE-7304 → Video Records</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag lf-new">New</span></div>
-      </div>
-
-      <div class="log-row log-new" onclick="goVideoSection()">
-        <div class="log-tag">VID</div>
-        <div class="log-body">
-          <div class="log-id">CASE-7304-VID-02 — The Floriano Museum Incident</div>
-          <div class="log-title">Drawing for Kids Fragment — Released</div>
-          <div class="log-sub">→ DOS-CASE-7304 → Video Records</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag lf-new">New</span></div>
-      </div>
-
-      <div class="log-row log-new" onclick="goVideoSection()">
-        <div class="log-tag">VID</div>
-        <div class="log-body">
-          <div class="log-id">CASE-7304-VID-04 — The Floriano Museum Incident</div>
-          <div class="log-title">Hallway Footage Fragment — Released</div>
-          <div class="log-sub">→ DOS-CASE-7304 → Video Records</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.06.05</span><span class="log-flag lf-new">New</span></div>
-      </div>
-
-
-      <div class="log-row" onclick="goVideoSection()">
-        <div class="log-tag">VID</div>
-        <div class="log-body">
-          <div class="log-id">CASE-7304-VID-03 — The Floriano Museum Incident</div>
-          <div class="log-title">Cafeteria Observation Fragment</div>
-          <div class="log-sub">→ DOS-CASE-7304 → Video Records</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.05.31</span><span class="log-flag lf-new">New</span></div>
-      </div>
-
-      <div class="log-row" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_02')">
-        <div class="log-tag">DOC</div>
-        <div class="log-body">
-          <div class="log-id">CASE-7304-DOC-07 — DOS-CASE-7304 → FOLDER_02</div>
-          <div class="log-title">School Record Anomaly Notice</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_02</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.05.30</span><span class="log-flag lf-flagged">Flagged</span></div>
-      </div>
-
-      <div class="log-row" onclick="goCaseFolder('DOS-CASE-7304','FOLDER_01')">
-        <div class="log-tag">REP</div>
-        <div class="log-body">
-          <div class="log-id">CASE-7304-REP-01 — ENT-SUBJ-4827 → Attached Materials</div>
-          <div class="log-title">Current Appearance Record</div>
-          <div class="log-sub">→ DOS-CASE-7304 → FOLDER_01</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.05.28</span><span class="log-flag lf-public">Public</span></div>
-      </div>
-
-      <div class="log-row" onclick="goEntView('ENT-SUBJ-4827')">
-        <div class="log-tag">ENT</div>
-        <div class="log-body">
-          <div class="log-id">ENT-SUBJ-4827 — Registry → Entities</div>
-          <div class="log-title">Caio Floriano / Kaius Florianus — File Opened</div>
-          <div class="log-sub">→ Registry → Entities</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.05.28</span><span class="log-flag lf-active">Active / Disputed</span></div>
-      </div>
-
-      <div class="log-row" onclick="goCaseView('DOS-CASE-7304')">
-        <div class="log-tag">CASE</div>
-        <div class="log-body">
-          <div class="log-id">DOS-CASE-7304 — Registry → Case Dossiers</div>
-          <div class="log-title">The Floriano Statue Incident — Dossier Opened</div>
-          <div class="log-sub">→ Registry → Case Dossiers</div>
-        </div>
-        <div class="log-meta"><span class="log-era">319 BX — 2026.05.28</span><span class="log-flag lf-open">Open</span></div>
-      </div>
+      <div class="cam-panel" id="cam-panel"></div>
     </div>
 
+    <!-- SIDEBAR -->
     <div class="sidebar">
+      <!-- System Status -->
       <div class="sblock">
-        <div class="sblock-title">Access Notice</div>
-        <p class="access-notice">This terminal displays restricted public copies of selected registry records. Redacted, sealed, corrupted, or internally disputed materials may appear as partial entries.</p>
-      </div>
-      <div class="sblock">
-        <div class="sblock-title">Registry Index</div>
-        <div class="reg-row"><div class="rk">Entities</div><div class="rv">01 public · <span class="s">■■■ sealed</span></div></div>
-        <div class="reg-row"><div class="rk">Case Dossiers</div><div class="rv">01 public · 15 folders open</div></div>
-        <div class="reg-row"><div class="rk">Video Records</div><div class="rv">06 public</div></div>
-        <div class="reg-row"><div class="rk">Historical Events</div><div class="rv">Access insufficient</div></div>
-        <div class="dead-lines">
-          <div class="dl">// CROSS-REF ENGINE OFFLINE</div>
-          <div class="dl">// DECRYPT LAYER — AUTH FAIL</div>
-          <div class="dl">// INTEGRITY CHECK — PENDING</div>
-          <div class="dl">// NODE 4 UNRESPONSIVE</div>
+        <div class="sblock-title">System Status</div>
+        <div class="sys-row"><div class="sys-key">Active Cases</div><div class="sys-val ok">01</div></div>
+        <div class="sys-row"><div class="sys-key">Entities</div><div class="sys-val">01 public · <span style="color:var(--ivory4);font-size:9px;">■■■ sealed</span></div></div>
+        <div class="sys-row"><div class="sys-key">Video Records</div><div class="sys-val ok">11 public</div></div>
+        <div class="sys-row"><div class="sys-key">Open Folders</div><div class="sys-val ok">15</div></div>
+        <div class="sys-row"><div class="sys-key">Cross-Ref Engine</div><div class="sys-val offline">OFFLINE</div></div>
+        <div class="sys-row"><div class="sys-key">Decrypt Layer</div><div class="sys-val offline">AUTH FAIL</div></div>
+        <div class="sys-row"><div class="sys-key">Integrity Check</div><div class="sys-val warn">PENDING</div></div>
+        <div class="sys-row"><div class="sys-key">Node 4</div><div class="sys-val offline">UNRESPONSIVE</div></div>
+        <div class="sys-uptime">
+          <div class="sys-uptime-label">Terminal Uptime</div>
+          <div class="sys-uptime-val" id="uptimeVal">—</div>
         </div>
       </div>
+      <!-- Quick Access -->
       <div class="sblock">
         <div class="sblock-title">Quick Access</div>
         <div class="quick-link" onclick="goEntView('ENT-SUBJ-4827')">ENT-SUBJ-4827 — Caio Floriano</div>
         <div class="quick-link" onclick="goCaseView('DOS-CASE-7304')">DOS-CASE-7304 — Floriano Incident</div>
-        <div class="quick-link" onclick="goVideoSection()">CASE-7304-VID-03 — New Video</div>
+        <div class="quick-link" onclick="goVideoSection()">CASE-7304-VID-50 — New Video</div>
       </div>
       <div class="rpc-stamp">Restricted Public Copy</div>
     </div>
@@ -1924,7 +1959,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
         <span class="arch-search-aside">Searching public index</span>
       </div>
       <div class="case-list" id="case-list">
-        <div class="case-card" onclick="goCaseView('DOS-CASE-7304')" data-s="floriano museum incident santa aurelia 2026 319">
+        <div class="case-card" onclick="goCaseView('DOS-CASE-7304')" data-s="floriano museum incident santa aurelia 2026 319" style="position:relative;overflow:hidden;">
           <div class="cc-tag">CASE</div>
           <div class="cc-body">
             <div class="cc-id">DOS-CASE-7304</div>
@@ -1936,8 +1971,9 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
             <span class="badge b-disp">Disputed</span>
             <span style="font-size:8px;color:var(--ivory4)">15 of 15 folders open</span>
           </div>
+          <div class="cc-integrity" style="--iw:68%;--icol:var(--red2)"></div>
         </div>
-        <div class="case-card" style="opacity:.27;cursor:default;pointer-events:none">
+        <div class="case-card" onclick="flashDenied()" style="opacity:.27;cursor:pointer;position:relative;overflow:hidden;">
           <div class="cc-tag" style="color:var(--border)">CASE</div>
           <div class="cc-body">
             <div class="cc-id" style="color:var(--border)">DOS-CASE-░░░░</div>
@@ -1945,8 +1981,9 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
             <div class="cc-meta">Classification pending · Access insufficient</div>
           </div>
           <div class="cc-right"><span class="badge b-seal">Sealed</span></div>
+          <div class="cc-integrity" style="--iw:18%;--icol:var(--border)"></div>
         </div>
-        <div class="case-card" style="opacity:.15;cursor:default;pointer-events:none">
+        <div class="case-card" onclick="flashDenied()" style="opacity:.15;cursor:pointer;position:relative;overflow:hidden;">
           <div class="cc-tag" style="color:var(--border)">CASE</div>
           <div class="cc-body">
             <div class="cc-id" style="color:var(--border)">DOS-CASE-░░░░</div>
@@ -1954,6 +1991,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
             <div class="cc-meta">Classification pending</div>
           </div>
           <div class="cc-right"><span class="badge b-seal">Sealed</span></div>
+          <div class="cc-integrity" style="--iw:8%;--icol:var(--border)"></div>
         </div>
       </div>
     </div>
@@ -1970,25 +2008,25 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
         <div class="ent-card-role">Divergent Individual · Santa Aurélia · 319 BX</div>
         <span class="badge b-act">Active</span>&nbsp;<span class="badge b-disp">Disputed</span>
       </div>
-      <div class="ent-card" onclick="nav('restricted')">
+      <div class="ent-card" onclick="flashDenied()">
         <div class="ent-card-id">ENT-SUBJ-2416</div>
         <div class="ent-card-name">Nico Ramos</div>
         <div class="ent-card-role">Associated Individual · Spell Initiator · 319 BX</div>
         <span class="badge b-rest">Restricted</span>
       </div>
-      <div class="ent-card" onclick="nav('restricted')">
+      <div class="ent-card" onclick="flashDenied()">
         <div class="ent-card-id">ENT-SUBJ-3178</div>
         <div class="ent-card-name">Caetano dos Andes</div>
         <div class="ent-card-role">Associated Individual · Witness · 319 BX</div>
         <span class="badge b-rest">Restricted</span>
       </div>
-      <div class="ent-card" onclick="nav('restricted')">
+      <div class="ent-card" onclick="flashDenied()">
         <div class="ent-card-id">ENT-SUBJ-3502</div>
         <div class="ent-card-name">Beto Barros</div>
         <div class="ent-card-role">Student Observer · Independent Investigation · 319 BX</div>
         <span class="badge b-rest">Restricted</span>
       </div>
-      <div class="ent-card" onclick="nav('restricted')">
+      <div class="ent-card" onclick="flashDenied()">
         <div class="ent-card-id">ENT-SUBJ-5119</div>
         <div class="ent-card-name">Aelius Acanthus / Aélio Acanto</div>
         <div class="ent-card-role">Historical · Ancient Beloved of Kaius · Patron of the Statue</div>
@@ -2018,13 +2056,13 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
         <div class="ent-card-role">Statue / Memorial Object · c. 118 CE · Museu Arcanum · Gallery C</div>
         <span class="badge b-seal">Fragmented</span>
       </div>
-      <div class="ent-card" onclick="nav('restricted')">
+      <div class="ent-card" onclick="flashDenied()">
         <div class="ent-card-id">ENT-OBJ-4819 / ENT-OBJ-4821</div>
         <div class="ent-card-name">Floriano Swords — Original & Marble</div>
         <div class="ent-card-role">Artifact / Weapon Pair · Original (Unsecured) · Marble Replica (In Custody — Vault A-17)</div>
         <span class="badge b-seal">Restricted</span>
       </div>
-      <div class="ent-card" onclick="nav('restricted')">
+      <div class="ent-card" onclick="flashDenied()">
         <div class="ent-card-id">ENT-OBJ-4824</div>
         <div class="ent-card-name">Nico Ramos Personal Grimoire</div>
         <div class="ent-card-role">Personal Object / Diary · Includes ENT-OBJ-4822 (Thorn-Rose Idol Paper) · Access Restricted</div>
@@ -2048,13 +2086,13 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
   <!-- FAMILIES -->
   <div class="tab-pane" id="tab-families">
     <div class="ent-grid">
-      <div class="ent-card" onclick="nav('restricted')">
+      <div class="ent-card" onclick="flashDenied()">
         <div class="ent-card-id">ENT-FAM-1842</div>
         <div class="ent-card-name">House Floriano</div>
         <div class="ent-card-role">Family / Historical House · Domus Floriana · Antiquity · Mediterranean · Patrimonial Hold</div>
         <span class="badge b-seal">Extinct / Disputed</span>
       </div>
-      <div class="ent-card" onclick="nav('restricted')">
+      <div class="ent-card" onclick="flashDenied()">
         <div class="ent-card-id">ENT-FAM-5408</div>
         <div class="ent-card-name">Acanthus / Ramos Lineage</div>
         <div class="ent-card-role">Genealogical Lineage · Historical Correlation · Contemporary Branch: Nico Ramos</div>
@@ -2079,19 +2117,19 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
   <div class="tab-pane" id="tab-materials">
     <p style="font-size:10px;color:var(--ivory4);line-height:1.9;margin-bottom:1.2rem;max-width:520px">Material samples, residues, and botanical substances catalogued in connection with active cases. Most materials under hazard review or restricted access.</p>
     <div class="ent-grid">
-      <div class="ent-card" onclick="nav('restricted')">
+      <div class="ent-card" onclick="flashDenied()">
         <div class="ent-card-id">ENT-MAT-5384</div>
         <div class="ent-card-name">Rosa floriana nigra</div>
         <div class="ent-card-role">Black Rose Cultivar · Botanical Sample · House Floriano · Hazard Review Active</div>
         <span class="badge b-hazard">Hazard Hold</span>
       </div>
-      <div class="ent-card" onclick="nav('restricted')">
+      <div class="ent-card" onclick="flashDenied()">
         <div class="ent-card-id">ENT-MAT-5385</div>
         <div class="ent-card-name">Marble Dust Residue</div>
         <div class="ent-card-role">Residue Sample · Collected Nov 11, 2026 · Museu Arcanum · Active Review</div>
         <span class="badge b-rest">Restricted</span>
       </div>
-      <div class="ent-card" onclick="nav('restricted')">
+      <div class="ent-card" onclick="flashDenied()">
         <div class="ent-card-id">ENT-MAT-5386</div>
         <div class="ent-card-name">Adhesive Residue / Paper Fiber Trace</div>
         <div class="ent-card-role">Material Sample · Aug 12, 2026 · Statue Base · Low Reliability</div>
@@ -2176,6 +2214,81 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
       <h2>Classification System</h2>
       <p>Records are classified under four principal layers: ENT (entities), DOS-CASE (investigation dossiers), CASE items (evidence within a case), and EVT (major historical milestones). The Exodus = 2345 / Year 0 AX.</p>
     </div>
+    <div class="about-sec" style="margin-top:2.4rem;">
+      <h2>Institutional History</h2>
+      <p style="margin-bottom:1rem;">Chronological record of institutional milestones. Dates in BX notation predate The Exodus. Most internal records are sealed or pending review.</p>
+      <div class="inst-timeline">
+        <div class="inst-tl-item sealed-evt">
+          <div class="inst-tl-year">▓▓▓▓ BX · Pre-Exodus</div>
+          <div class="inst-tl-title">▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</div>
+          <div class="inst-tl-desc">Origin record — sealed per internal directive. Classification: Not for public access.</div>
+        </div>
+        <div class="inst-tl-item key-evt">
+          <div class="inst-tl-year">Year 0 AX · EVT-CAT-2345</div>
+          <div class="inst-tl-title">The Exodus — Chronological Reset</div>
+          <div class="inst-tl-desc">Reference event for all OZE temporal records. Pre-Exodus dates expressed in BX notation. Post-Exodus in AX. Registry framework formally adopted.</div>
+        </div>
+        <div class="inst-tl-item sealed-evt">
+          <div class="inst-tl-year">▓▓▓▓ BX</div>
+          <div class="inst-tl-title">▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</div>
+        </div>
+        <div class="inst-tl-item sealed-evt">
+          <div class="inst-tl-year">▓▓▓▓ BX</div>
+          <div class="inst-tl-title">▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</div>
+        </div>
+        <div class="inst-tl-item key-evt">
+          <div class="inst-tl-year">319 BX · 2026</div>
+          <div class="inst-tl-title">DOS-CASE-7304 Opened</div>
+          <div class="inst-tl-desc">Active investigation: The Floriano Museum Incident. Public Access Terminal authorized for restricted subset of records. Status: open / disputed.</div>
+        </div>
+        <div class="inst-tl-item">
+          <div class="inst-tl-year">319 BX · June 2026</div>
+          <div class="inst-tl-title">Public Terminal Launched</div>
+          <div class="inst-tl-desc">This interface made available. Selected records released under institutional review. 15 folders public. Access level: restricted.</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-sec" style="margin-top:2rem;">
+      <h2>Institutional Structure — Public Record</h2>
+      <p>Partial organizational schema. Most designations are redacted per internal directive REV-0041. Structure active. Assignments current as of 319 BX.</p>
+      <div class="org-chart">
+        <div class="org-row">
+          <div class="org-node org-top">
+            <div class="org-node-id">DIR-01</div>
+            <div class="org-node-name org-redacted">█████████████████</div>
+          </div>
+        </div>
+        <div class="org-tree">├── Classification &amp; Review</div>
+        <div class="org-row" style="padding-left:1.4rem;">
+          <div class="org-node">
+            <div class="org-node-id">UNIT-CLS</div>
+            <div class="org-node-name org-redacted">████████ ████ ████████</div>
+          </div>
+          <div class="org-node">
+            <div class="org-node-id">UNIT-REV</div>
+            <div class="org-node-name org-redacted">███ ██████ █████</div>
+          </div>
+        </div>
+        <div class="org-tree">├── Field Operations</div>
+        <div class="org-row" style="padding-left:1.4rem;">
+          <div class="org-node">
+            <div class="org-node-id">UNIT-FLD-A</div>
+            <div class="org-node-name org-redacted">███████ ████████</div>
+          </div>
+          <div class="org-node">
+            <div class="org-node-id">UNIT-FLD-B</div>
+            <div class="org-node-name org-redacted">█████████ ████</div>
+          </div>
+        </div>
+        <div class="org-tree">└── Public Interface</div>
+        <div class="org-row" style="padding-left:1.4rem;">
+          <div class="org-node">
+            <div class="org-node-id">UNIT-PUB</div>
+            <div class="org-node-name">Public Access Terminal</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 </div>
@@ -2207,6 +2320,7 @@ function archTab(id,btn) {
   document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
+  triggerArchScan();
   // Always reset any open detail views when switching tabs
   var vl = document.getElementById('view-list');
   var vd = document.getElementById('view-detail');
@@ -2281,6 +2395,7 @@ function goEntView(id) {
   slot.innerHTML=buildEntDetail(id);
   document.getElementById('ent-grid').style.display='none';
   window.scrollTo(0,0);
+  setTimeout(initEntityHUD, 80);
 }
 function closeEntView() {
   document.getElementById('ent-detail-slot').innerHTML='';
@@ -2727,7 +2842,7 @@ function buildCaseDetail(caseId) {
         <!-- VID-05 -->
         <div class="vcard" id="vcard-05">
           <div class="vcard-player">
-            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback">
               <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1781192141/CASE-7304-VID-05_first_speel_svyofn.mp4" type="video/mp4">
             </video>
             <div class="vcard-scanlines"></div>
@@ -2748,7 +2863,7 @@ function buildCaseDetail(caseId) {
         <!-- VID-15 -->
         <div class="vcard" id="vcard-15">
           <div class="vcard-player">
-            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback">
               <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1781192266/VID_CASE-7304-VID-15_p56hz2.mp4" type="video/mp4">
             </video>
             <div class="vcard-scanlines"></div>
@@ -2769,7 +2884,7 @@ function buildCaseDetail(caseId) {
         <!-- VID-22 -->
         <div class="vcard" id="vcard-22">
           <div class="vcard-player">
-            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback">
               <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1781212061/CASE-7304-VID-29_mo7ibn.mp4" type="video/mp4">
             </video>
             <div class="vcard-scanlines"></div>
@@ -2790,7 +2905,7 @@ function buildCaseDetail(caseId) {
         <!-- VID-29 -->
         <div class="vcard" id="vcard-29">
           <div class="vcard-player">
-            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback">
               <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1781212083/CASE-7304-VID-29_lrrwhn.mp4" type="video/mp4">
             </video>
             <div class="vcard-scanlines"></div>
@@ -2811,7 +2926,7 @@ function buildCaseDetail(caseId) {
         <!-- VID-36 -->
         <div class="vcard" id="vcard-36">
           <div class="vcard-player">
-            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback">
               <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/CASE-7304-VID-36_rhwjaa.mp4" type="video/mp4">
             </video>
             <div class="vcard-scanlines"></div>
@@ -2832,7 +2947,7 @@ function buildCaseDetail(caseId) {
         <!-- VID-43 -->
         <div class="vcard" id="vcard-43">
           <div class="vcard-player">
-            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback">
               <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1781192153/CASE-7304-VID-43_jmfwmx.mp4" type="video/mp4">
             </video>
             <div class="vcard-scanlines"></div>
@@ -2853,7 +2968,7 @@ function buildCaseDetail(caseId) {
         <!-- VID-50 -->
         <div class="vcard" id="vcard-50">
           <div class="vcard-player">
-            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback">
               <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1781192332/CASE-7304-VID-50_o7aa77.mp4" type="video/mp4">
             </video>
             <div class="vcard-scanlines"></div>
@@ -2874,7 +2989,7 @@ function buildCaseDetail(caseId) {
         <!-- VID-57 -->
         <div class="vcard" id="vcard-57">
           <div class="vcard-player">
-            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback">
               <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/CASE-7304-VID-57_uqtfov.mp4" type="video/mp4">
             </video>
             <div class="vcard-scanlines"></div>
@@ -2890,6 +3005,70 @@ function buildCaseDetail(caseId) {
             <div class="vcard-id">CASE-7304-VID-57</div>
             <div class="vcard-title">Best Friends</div>
             <div class="vcard-badges"><span class="badge b-open">Public</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">2026 · 319 BX</span></div>
+          </div>
+        </div>
+
+        <!-- VID-72 -->
+        <div class="vcard" id="vcard-72">
+          <div class="vcard-player">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback">
+              <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1782143260/CASE-7304-VID-72_mvzxy5.mp4" type="video/mp4">
+            </video>
+            <div class="vcard-scanlines"></div>
+            <div class="vcard-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+            <div class="vcard-stamp">REC · VID-72</div>
+            <div class="vcard-thumb">
+              <img src="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1782143259/CASE-7304-VID-72_h6aiv6.png" alt="CASE-7304-VID-72">
+              <div class="vcard-thumb-overlay"><div class="vcard-play-btn">▶</div></div>
+            </div>
+            <button class="vcard-mute">♪ OFF</button>
+          </div>
+          <div class="vcard-info">
+            <div class="vcard-id">CASE-7304-VID-72</div>
+            <div class="vcard-title">The Kiss</div>
+            <div class="vcard-badges"><span class="badge b-open">Public</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">Nov 2026 · 319 BX</span></div>
+          </div>
+        </div>
+        <!-- VID-80 -->
+        <div class="vcard" id="vcard-80">
+          <div class="vcard-player">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback">
+              <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1782143261/CASE-7304-VID-80_ikit3e.mp4" type="video/mp4">
+            </video>
+            <div class="vcard-scanlines"></div>
+            <div class="vcard-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+            <div class="vcard-stamp">REC · VID-80</div>
+            <div class="vcard-thumb">
+              <img src="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1782143262/CASE-7304-VID-80_nqam2c.png" alt="CASE-7304-VID-80">
+              <div class="vcard-thumb-overlay"><div class="vcard-play-btn">▶</div></div>
+            </div>
+            <button class="vcard-mute">♪ OFF</button>
+          </div>
+          <div class="vcard-info">
+            <div class="vcard-id">CASE-7304-VID-80</div>
+            <div class="vcard-title">Cupido Dancing</div>
+            <div class="vcard-badges"><span class="badge b-open">Public</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">Nov 2026 · 319 BX</span></div>
+          </div>
+        </div>
+        <!-- VID-88 -->
+        <div class="vcard" id="vcard-88">
+          <div class="vcard-player">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback">
+              <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/v1782143262/CASE-7304-VID-88_nopwfb.mp4" type="video/mp4">
+            </video>
+            <div class="vcard-scanlines"></div>
+            <div class="vcard-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+            <div class="vcard-stamp">REC · VID-88</div>
+            <div class="vcard-thumb">
+              <img src="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1782143261/CASE-7304-VID-88_vkbcmy.png" alt="CASE-7304-VID-88">
+              <div class="vcard-thumb-overlay"><div class="vcard-play-btn">▶</div></div>
+            </div>
+            <button class="vcard-mute">♪ OFF</button>
+          </div>
+          <div class="vcard-info">
+            <div class="vcard-id">CASE-7304-VID-88</div>
+            <div class="vcard-title">The Last Spell</div>
+            <div class="vcard-badges"><span class="badge b-open">Public</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">Nov 2026 · 319 BX</span></div>
           </div>
         </div>
 
@@ -4042,6 +4221,330 @@ function thornRender(){
   if(img)img.src=_fvSet[_fvIdx]||'';
   if(ctr)ctr.textContent=_fvSet.length?((_fvIdx+1)+' / '+_fvSet.length):'';
 }
+
+// ══ ACCESS GATE ══
+(function initGate(){
+  if(sessionStorage.getItem('oze_gate_shown')){
+    var g=document.getElementById('access-gate');
+    if(g){g.classList.add('dismissing');setTimeout(function(){g.classList.add('gone');},50);}
+    return;
+  }
+  var seq=[
+    {text:'> INITIALIZING SECURE CONNECTION...',delay:350,cls:''},
+    {text:'> VERIFYING PUBLIC TERMINAL ACCESS...',delay:900,cls:''},
+    {text:'> CLEARANCE LEVEL: PUBLIC — AUTHORIZED',delay:1550,cls:'ok'},
+    {text:'> LOADING RESTRICTED PUBLIC INDEX...',delay:2100,cls:'warn'},
+  ];
+  var linesEl=document.getElementById('gate-lines');
+  var barEl=document.getElementById('gate-bar');
+  var statusEl=document.getElementById('gate-status');
+  seq.forEach(function(l){
+    setTimeout(function(){
+      var s=document.createElement('span');
+      s.className='gate-line'+(l.cls?' '+l.cls:'');
+      s.textContent=l.text;
+      linesEl.appendChild(s);
+      requestAnimationFrame(function(){s.classList.add('visible');});
+    },l.delay);
+  });
+  var pct=0;
+  var bi=setInterval(function(){
+    pct+=Math.random()*3.5+0.8;
+    if(pct>=100){pct=100;clearInterval(bi);}
+    barEl.style.width=pct+'%';
+  },40);
+  setTimeout(function(){
+    statusEl.textContent='ACCESS GRANTED — TERMINAL READY';
+    statusEl.classList.add('granted');
+  },2700);
+  setTimeout(function(){
+    var gate=document.getElementById('access-gate');
+    gate.classList.add('dismissing');
+    setTimeout(function(){
+      gate.classList.add('gone');
+      sessionStorage.setItem('oze_gate_shown','1');
+    },750);
+  },3300);
+})();
+
+// ══ FEATURED TRANSMISSION ══
+
+// ══ LOG FEED BACKDROP ══
+var _LOG_POOL=[
+  '[04:17:03] DOS-CASE-7304 · PACKET RECEIVED · 3.2KB',
+  '[04:17:05] CROSS-REF ENGINE — TIMEOUT · RETRY 1/3',
+  '[04:17:07] NODE-4 · PING FAILED · STATUS: UNREACHABLE',
+  '[04:17:09] ENT-SUBJ-4827 · LOCATION TRACE · NO RESULT',
+  '[04:17:11] DECRYPT LAYER · AUTH TOKEN EXPIRED',
+  '[04:17:14] INTEGRITY CHECK · SECTOR 7 · ANOMALY FLAGGED',
+  '[04:17:18] DOS-CASE-7304 · FOLDER_13 · READ ACCESS GRANTED',
+  '[04:17:21] CROSS-REF ENGINE — TIMEOUT · RETRY 2/3',
+  '[04:17:24] SEALED RECORD · ENT-SLD-0331 · ACCESS DENIED',
+  '[04:17:27] TERMINAL UPTIME · 24D 13H 07M 42S',
+  '[04:17:29] NODE-4 · PING FAILED · STATUS: UNREACHABLE',
+  '[04:17:31] PUBLIC COPY INDEX · SYNC COMPLETE',
+  '[04:17:33] CROSS-REF ENGINE — OFFLINE · RESTART PENDING',
+  '[04:17:36] ENT-MAT-5384 · LAB RESULT · PENDING VERIFICATION',
+  '[04:17:39] DECRYPT LAYER · AUTH TOKEN EXPIRED',
+  '[04:17:42] DOS-CASE-7304 · ENTITY COUNT · 01 PUBLIC · 3 SEALED',
+  '[04:17:45] NODE-4 · PING FAILED · STATUS: UNREACHABLE',
+  '[04:17:48] HISTORICAL EVENTS · ACCESS SUSPENDED · DIR-77B',
+  '[04:17:51] INTEGRITY CHECK · SECTOR 3 · CLEAR',
+  '[04:17:54] ENT-SUBJ-4827 · BEHAVIORAL FLAG · PHASE II',
+  '[04:17:57] VIDEO RECORD · VID-50 · PUBLIC COPY SYNCED',
+  '[04:18:00] CROSS-REF ENGINE — OFFLINE · ATTEMPT 3/3 · FAILED',
+  '[04:18:03] DOS-CASE-7304 · FOLDER_15 · READ ACCESS GRANTED',
+  '[04:18:06] TERMINAL ACCESS · PUBLIC LEVEL · SESSION ACTIVE',
+  '[04:18:09] SEALED RECORD · ENT-SLD-0447 · ACCESS DENIED',
+  '[04:18:12] NODE-4 · PING FAILED · STATUS: UNREACHABLE',
+  '[04:18:15] INTEGRITY CHECK · NODE-4 DATA · UNVERIFIABLE',
+  '[04:18:18] ENT-FAM-5408 · LINEAGE ENTRY · CONVERGENCE: 3 PTS',
+  '[04:18:21] DOS-CASE-7304 · STATUS · OPEN · ACTIVE',
+  '[04:18:24] DECRYPT LAYER · REINITIALIZING · ATTEMPT 1',
+  '[04:18:27] SEALED RECORD · ENT-SLD-0112 · ACCESS DENIED',
+  '[04:18:30] VIDEO RECORD · VID-43 · PUBLIC COPY SYNCED',
+  '[04:18:33] ENT-SUBJ-4827 · LOCATION TRACE · NO RESULT',
+  '[04:18:36] NODE-4 · PING FAILED · STATUS: UNREACHABLE',
+  '[04:18:39] CROSS-REF ENGINE — OFFLINE · RESTART FAILED',
+  '[04:18:42] HISTORICAL EVENTS · QUERY BLOCKED · DIR-77B',
+  '[04:18:45] ENT-MAT-5384 · GROWTH ANOMALY · FLAG SET',
+];
+
+function initLogFeed(){
+  var el=document.getElementById('home-log-feed');
+  if(!el) return;
+  var lines=_LOG_POOL.slice();
+  for(var i=lines.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=lines[i];lines[i]=lines[j];lines[j]=tmp;}
+  var doubled=lines.concat(lines).concat(lines);
+  el.textContent=doubled.join('\n');
+  var lh=15.75; // lineHeight 9px * 1.75
+  var total=lines.length*lh;
+  var pos=0;
+  (function tick(){
+    pos+=0.28;
+    if(pos>=total) pos=0;
+    el.style.transform='translateY(-'+pos+'px)';
+    requestAnimationFrame(tick);
+  })();
+}
+
+// ══ TITLE GLITCH ══
+var _GLITCH='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@%&';
+function initGlitch(){
+  var el=document.getElementById('homeTitle');
+  if(!el) return;
+  var orig=el.textContent;
+  function glitch(){
+    var i=Math.floor(Math.random()*orig.length);
+    var c=_GLITCH[Math.floor(Math.random()*_GLITCH.length)];
+    var arr=orig.split('');arr[i]=c;
+    el.textContent=arr.join('');
+    setTimeout(function(){el.textContent=orig;},75);
+    if(Math.random()<0.35){
+      setTimeout(function(){
+        var i2=Math.floor(Math.random()*orig.length);
+        var c2=_GLITCH[Math.floor(Math.random()*_GLITCH.length)];
+        var a2=orig.split('');a2[i2]=c2;
+        el.textContent=a2.join('');
+        setTimeout(function(){el.textContent=orig;},60);
+      },110);
+    }
+    setTimeout(glitch,5000+Math.random()*9000);
+  }
+  setTimeout(glitch,4000+Math.random()*3000);
+}
+
+// ══ STATUS PULSE ══
+function initStatusPulse(){
+  var els=document.querySelectorAll('.sys-val.offline,.sys-val.warn');
+  if(!els.length) return;
+  (function pulse(){
+    els.forEach(function(e){
+      if(Math.random()<0.38){
+        e.style.opacity='0.15';
+        setTimeout(function(){e.style.opacity='1';},120+Math.random()*80);
+      }
+    });
+    setTimeout(pulse,2500+Math.random()*3500);
+  })();
+}
+
+// ══ SYSTEM UPTIME COUNTER ══
+var _terminalEpoch=new Date('2026-05-28T00:00:00');
+function _pad(n){return n<10?'0'+n:n;}
+function updateUptime(){
+  var diff=Math.max(0,Math.floor((new Date()-_terminalEpoch)/1000));
+  var d=Math.floor(diff/86400);
+  var h=Math.floor((diff%86400)/3600);
+  var m=Math.floor((diff%3600)/60);
+  var s=diff%60;
+  var el=document.getElementById('uptimeVal');
+  if(el)el.textContent=d+'d '+_pad(h)+'h '+_pad(m)+'m '+_pad(s)+'s';
+}
+setInterval(updateUptime,1000);
+
+// ══ CAMERA PANEL — 9-grid random surveillance ══
+var _CAM_POOL=[
+  'https://res.cloudinary.com/dtbuzvpem/video/upload/v1781192141/CASE-7304-VID-05_first_speel_svyofn.mp4',
+  'https://res.cloudinary.com/dtbuzvpem/video/upload/v1781192266/VID_CASE-7304-VID-15_p56hz2.mp4',
+  'https://res.cloudinary.com/dtbuzvpem/video/upload/v1781212061/CASE-7304-VID-29_mo7ibn.mp4',
+  'https://res.cloudinary.com/dtbuzvpem/video/upload/v1781212083/CASE-7304-VID-29_lrrwhn.mp4',
+  'https://res.cloudinary.com/dtbuzvpem/video/upload/CASE-7304-VID-36_rhwjaa.mp4',
+  'https://res.cloudinary.com/dtbuzvpem/video/upload/v1781192153/CASE-7304-VID-43_jmfwmx.mp4',
+  'https://res.cloudinary.com/dtbuzvpem/video/upload/v1781192332/CASE-7304-VID-50_o7aa77.mp4',
+  'https://res.cloudinary.com/dtbuzvpem/video/upload/CASE-7304-VID-57_uqtfov.mp4',
+  'https://res.cloudinary.com/dtbuzvpem/video/upload/v1782143260/CASE-7304-VID-72_mvzxy5.mp4',
+  'https://res.cloudinary.com/dtbuzvpem/video/upload/v1782143261/CASE-7304-VID-80_ikit3e.mp4',
+  'https://res.cloudinary.com/dtbuzvpem/video/upload/v1782143262/CASE-7304-VID-88_nopwfb.mp4'
+];
+function _shuffle(arr){
+  var a=arr.slice();
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+  return a;
+}
+function initCamPanel(){
+  var panel=document.getElementById('cam-panel');
+  if(!panel) return;
+  var pool=_shuffle(_CAM_POOL);
+  while(pool.length<9) pool=pool.concat(_shuffle(_CAM_POOL));
+  pool=pool.slice(0,9);
+  panel.innerHTML=pool.map(function(src){
+    return '<div class="dscreen"><video autoplay muted loop playsinline disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback"><source src="'+src+'" type="video/mp4"></video><div class="dscreen-scan"></div><div class="dscreen-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div></div>';
+  }).join('');
+}
+
+// ══ ARCHIVE — access denied flash ══
+function flashDenied(goTo){
+  var el=document.getElementById('case-denied-flash');
+  if(!el) return;
+  el.classList.add('show');
+  setTimeout(function(){
+    el.classList.remove('show');
+    if(goTo) nav(goTo);
+  },1100);
+}
+
+// ══ ARCHIVE — tab scan line ══
+function triggerArchScan(){
+  var area=document.querySelector('.atabs');
+  if(!area) return;
+  var line=document.createElement('div');
+  line.className='arch-scan-line';
+  area.style.position='relative';
+  area.appendChild(line);
+  setTimeout(function(){if(line.parentNode)line.parentNode.removeChild(line);},600);
+}
+
+// ══ VIDEO HUD — timestamp overlay ══
+var _VID_HUD_DATA={
+  'vcard-05':{cam:'CAM-E4',coord:'-23.5471 / -046.638'},
+  'vcard-15':{cam:'CAM-M1',coord:'-23.5498 / -046.642'},
+  'vcard-22':{cam:'CAM-N9',coord:'-23.5511 / -046.639'},
+  'vcard-29':{cam:'CAM-A3',coord:'-23.5482 / -046.641'},
+  'vcard-36':{cam:'CAM-B7',coord:'-23.5465 / -046.637'},
+  'vcard-43':{cam:'CAM-C2',coord:'-23.5503 / -046.643'},
+  'vcard-50':{cam:'CAM-E1',coord:'-23.5491 / -046.640'},
+  'vcard-57':{cam:'CAM-F6',coord:'-23.5478 / -046.635'},
+  'vcard-72':{cam:'CAM-D8',coord:'-23.5466 / -046.641'},
+  'vcard-80':{cam:'CAM-G3',coord:'-23.5519 / -046.636'},
+  'vcard-88':{cam:'CAM-H2',coord:'-23.5487 / -046.644'}
+};
+function initVideoHUD(){
+  Object.keys(_VID_HUD_DATA).forEach(function(id){
+    var vcard=document.getElementById(id);
+    if(!vcard) return;
+    var player=vcard.querySelector('.vcard-player');
+    if(!player) return;
+    var d=_VID_HUD_DATA[id];
+    var hud=document.createElement('div');
+    hud.className='vcard-hud';
+    hud.innerHTML='<div class="vcard-hud-ts" id="vhts-'+id+'">--:--:--</div><div class="vcard-hud-cam">'+d.cam+'</div><div class="vcard-hud-coord">'+d.coord+'</div>';
+    player.appendChild(hud);
+  });
+  (function tickHud(){
+    var n=new Date();
+    var ts=[n.getHours(),n.getMinutes(),n.getSeconds()].map(function(v){return String(v).padStart(2,'0');}).join(':');
+    document.querySelectorAll('[id^="vhts-"]').forEach(function(el){el.textContent=ts;});
+    requestAnimationFrame(tickHud);
+  })();
+}
+
+// ══ ENTITY — heatmap + anomaly arc ══
+function initEntityHUD(){
+  var sidebar=document.querySelector('.ent-layout > div:first-child');
+  if(!sidebar||sidebar.querySelector('.anomaly-arc-wrap')) return;
+  // Anomaly arc
+  var arcVal=74;
+  var r=28, cx=36, cy=36, circ=2*Math.PI*r;
+  var dash=circ*(arcVal/100), gap=circ-dash;
+  var arcHTML='<div class="anomaly-arc-wrap" style="margin-top:.8rem;">'
+    +'<svg class="anomaly-arc-svg" width="72" height="72" viewBox="0 0 72 72">'
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="rgba(139,26,26,.15)" stroke-width="5"/>'
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="var(--red2)" stroke-width="5"'
+    +' stroke-dasharray="'+dash.toFixed(1)+' '+gap.toFixed(1)+'"'
+    +' stroke-linecap="round" transform="rotate(-90 36 36)"/>'
+    +'</svg>'
+    +'<span class="anomaly-arc-val">'+arcVal+'</span>'
+    +'<span class="anomaly-arc-label">Anomaly Index</span>'
+    +'</div>';
+  // Heatmap (4 weeks × 7 days = 28 cells)
+  var _weights=[0,0,1,0,2,1,0, 0,1,2,1,3,2,0, 0,0,1,3,2,1,0, 1,2,2,1,3,2,1];
+  var lvls=['','hm-low','hm-mid','hm-high'];
+  var cells=_weights.map(function(w){return '<div class="hm-cell '+lvls[w]+'"></div>';}).join('');
+  var hmHTML='<div class="mblock" style="margin-top:.8rem;">'
+    +'<div class="mblock-head">Sighting Pattern — 28d</div>'
+    +'<div style="padding:.5rem .6rem .6rem;">'
+    +'<div class="sighting-heatmap">'+cells+'</div>'
+    +'<div style="display:flex;justify-content:space-between;margin-top:3px;">'
+    +'<span style="font-size:6px;letter-spacing:.1em;color:var(--ivory4)">4 WKS AGO</span>'
+    +'<span style="font-size:6px;letter-spacing:.1em;color:var(--ivory4)">CURRENT</span>'
+    +'</div></div></div>';
+  sidebar.insertAdjacentHTML('beforeend', arcHTML + hmHTML);
+}
+
+// ══ SUPPRESS OPERA / BROWSER MEDIA PLAYER OVERLAY ══
+function initMediaSessionSuppress(){
+  if(!('mediaSession' in navigator)) return;
+  // Declare no active session — removes Opera's next/prev playlist buttons
+  navigator.mediaSession.metadata=null;
+  navigator.mediaSession.playbackState='none';
+  // Watch every video: reset session state whenever any of them plays
+  document.querySelectorAll('video').forEach(function(v){
+    v.addEventListener('play',function(){
+      navigator.mediaSession.metadata=null;
+      navigator.mediaSession.playbackState='none';
+      // Explicitly nullify playlist actions so browser won't draw its own buttons
+      ['nexttrack','previoustrack','seekforward','seekbackward'].forEach(function(a){
+        try{navigator.mediaSession.setActionHandler(a,null);}catch(e){}
+      });
+    });
+  });
+  // Also handle dynamically created videos (cam panel)
+  new MutationObserver(function(muts){
+    muts.forEach(function(m){
+      m.addedNodes.forEach(function(n){
+        if(n.nodeType!==1) return;
+        var vids=n.tagName==='VIDEO'?[n]:Array.from(n.querySelectorAll('video'));
+        vids.forEach(function(v){
+          v.addEventListener('play',function(){
+            navigator.mediaSession.metadata=null;
+            navigator.mediaSession.playbackState='none';
+          });
+        });
+      });
+    });
+  }).observe(document.body,{childList:true,subtree:true});
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  updateUptime();
+  initLogFeed();
+  initGlitch();
+  initStatusPulse();
+  initCamPanel();
+  initVideoHUD();
+  initMediaSessionSuppress();
+});
 
 </script>
 
