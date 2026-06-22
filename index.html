@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/OZE_Registry_Office_Logo_noback_xk8aqy.png">
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/OZE_Registry_Office_Logo_noback_xk8aqy.png">
+  <link rel="apple-touch-icon" href="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/OZE_Registry_Office_Logo_noback_xk8aqy.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OZE Public Access Terminal — Registry of Divergent Occurrences</title>
 <style>
@@ -864,6 +867,637 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
 }
 .thorn-close-btn:hover { border-color:#666; color:#fff; }
 
+/* THORN phone simulator */
+#thorn-overlay .thorn-frame {
+  position: fixed;
+  top: 50%;
+  right: 2rem;
+  transform: translate(calc(100% + 3rem), -50%);
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+  width: min(430px, calc(100vw - 28px));
+  height: min(838px, 96vh);
+  max-height: 96vh;
+  border: 1px solid rgba(159, 24, 35, .72);
+  background: rgba(5, 5, 6, .72);
+  box-shadow: 0 28px 90px rgba(0,0,0,.8), inset 0 0 0 1px rgba(159,24,35,.16);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#thorn-overlay.open .thorn-frame {
+  transform: translate(0, -50%);
+}
+
+.thorn-frame-bar {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(159,24,35,.28);
+  padding-bottom: 9px;
+}
+
+.thorn-frame-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--red2);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#thorn-overlay .thorn-panel {
+  position: relative;
+  top: auto;
+  right: auto;
+  transform: none;
+  align-self: center;
+  width: min(372px, 100%);
+  height: auto;
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  border-radius: 42px;
+  background: #050505;
+  border: 7px solid #0b0b0d;
+  box-shadow: 0 34px 90px rgba(0,0,0,.82), 0 0 0 1px rgba(255,255,255,.12);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+#thorn-overlay.open .thorn-panel {
+  transform: none;
+}
+
+#thorn-overlay .thorn-panel::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 42px;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.09), inset 0 -14px 28px rgba(255,255,255,.04);
+}
+
+#thorn-overlay .thorn-notch {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  z-index: 9;
+  width: 112px;
+  height: 27px;
+  transform: translateX(-50%);
+  border-radius: 0 0 18px 18px;
+  background: #050505;
+}
+
+#thorn-overlay .thorn-notch-pill {
+  width: 54px;
+  height: 5px;
+  margin-top: 8px;
+  background: #1d1d21;
+}
+
+#thorn-overlay .thorn-status {
+  height: 42px;
+  padding: 13px 24px 0;
+  background: transparent;
+  color: #fff;
+  position: relative;
+  z-index: 8;
+}
+
+#thorn-overlay .thorn-owner,
+#thorn-overlay .thorn-clock {
+  font-size: 12px;
+  line-height: 1;
+  color: #fff;
+  font-weight: 650;
+}
+
+#thorn-overlay .thorn-tabs,
+#thorn-overlay .thorn-app-header {
+  display: none;
+}
+
+#thorn-overlay .thorn-content {
+  flex: 1;
+  min-height: 0;
+  background:
+    radial-gradient(circle at 78% 12%, rgba(78,45,98,.42), transparent 34%),
+    radial-gradient(circle at 18% 78%, rgba(20,88,86,.38), transparent 38%),
+    linear-gradient(145deg, #111116 0%, #050507 48%, #07090c 100%);
+  color: #f5f5f7;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+#thorn-overlay .thorn-content::-webkit-scrollbar { width: 0; }
+
+#thorn-overlay .thorn-close-strip {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  flex: 0 0 auto;
+}
+
+#thorn-overlay .thorn-panel > .thorn-close-strip {
+  display: none;
+}
+
+#thorn-overlay .thorn-close-btn {
+  min-width: 54px;
+  height: 24px;
+  padding: 0 12px;
+  border-radius: 0;
+  border: 1px solid rgba(159,24,35,.75);
+  background: rgba(10,2,4,.7);
+  color: var(--red2);
+  font-family: var(--mono);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+#thorn-overlay .thorn-close-btn::before {
+  content: "ESC";
+}
+
+#thorn-overlay .thorn-close-btn:hover {
+  background: rgba(159,24,35,.18);
+  border-color: var(--red2);
+  color: var(--ivory);
+}
+
+.thorn-phone-home {
+  min-height: 100%;
+  padding: 54px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  background-image: url('https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/v1782076834/wallpaper_g5x9s4.png');
+  background-size: cover;
+  background-position: center top;
+}
+
+.thorn-phone-lock {
+  margin-bottom: 28px;
+}
+
+.thorn-phone-time {
+  font-size: 54px;
+  font-weight: 200;
+  letter-spacing: 0;
+  line-height: .96;
+}
+
+.thorn-phone-ownerline {
+  margin-top: 7px;
+  color: rgba(255,255,255,.68);
+  font-size: 13px;
+}
+
+.thorn-phone-appgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 16px;
+  margin-top: 12px;
+}
+
+.thorn-phone-app {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.thorn-phone-app:focus-visible,
+.thorn-phone-back:focus-visible,
+.thorn-phone-row:focus-visible,
+.thorn-fv-back:focus-visible,
+.thorn-fv-arrow:focus-visible,
+.thorn-close-btn:focus-visible {
+  outline: 2px solid rgba(64,156,255,.9);
+  outline-offset: 3px;
+}
+
+.thorn-phone-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 25px;
+  font-weight: 720;
+  box-shadow: 0 9px 22px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.25);
+}
+
+.thorn-phone-icon.photos {
+  background:
+    radial-gradient(circle at 50% 24%, #fff 0 8px, transparent 9px),
+    conic-gradient(from 20deg, #ff4d6d, #ffb703, #3ddc97, #3a86ff, #9b5de5, #ff4d6d);
+}
+
+.thorn-phone-icon.messages { background: linear-gradient(160deg, #43d95d, #109f35); }
+.thorn-phone-icon.notes { background: linear-gradient(160deg, #ffd84a, #b97900); color: #1b1400; }
+
+.thorn-phone-label {
+  max-width: 76px;
+  color: rgba(255,255,255,.9);
+  font-size: 11px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.thorn-phone-dock {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 12px;
+  border-radius: 28px;
+  background: rgba(255,255,255,.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.11);
+}
+
+.thorn-phone-shell {
+  min-height: 100%;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+.thorn-phone-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: 72px 1fr 72px;
+  align-items: center;
+  min-height: 54px;
+  padding: 7px 12px 8px;
+  background: rgba(18,18,20,.94);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  backdrop-filter: blur(16px);
+}
+
+.thorn-phone-back {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #0a84ff;
+  font-size: 15px;
+  text-align: left;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.thorn-phone-home-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #0a84ff;
+  font-size: 19px;
+  text-align: right;
+  padding: 8px 0;
+  cursor: pointer;
+  width: 72px;
+}
+
+.thorn-phone-title {
+  text-align: center;
+  min-width: 0;
+}
+
+.thorn-phone-title strong {
+  display: block;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 680;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.thorn-phone-title span {
+  display: block;
+  margin-top: 1px;
+  color: rgba(255,255,255,.48);
+  font-size: 11px;
+}
+
+.thorn-phone-body {
+  flex: 1;
+  min-height: 0;
+}
+
+.thorn-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  padding: 2px;
+}
+
+.thorn-photo-thumb {
+  appearance: none;
+  border: 0;
+  background: #151515;
+  padding: 0;
+  aspect-ratio: 1;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.thorn-photo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thorn-phone-list {
+  padding: 6px 0 18px;
+}
+
+.thorn-phone-row {
+  appearance: none;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  background: #000;
+  color: #fff;
+  padding: 11px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.thorn-phone-row:hover { background: #111; }
+
+.thorn-phone-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #3a3a3f, #17171b);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.thorn-phone-row-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.thorn-phone-row-top {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.thorn-phone-row-name {
+  flex: 1;
+  min-width: 0;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 620;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.thorn-phone-row-date {
+  color: rgba(255,255,255,.42);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.thorn-phone-preview {
+  margin-top: 2px;
+  color: rgba(255,255,255,.48);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.thorn-thread {
+  padding: 18px 14px 86px;
+}
+
+.thorn-thread-date {
+  color: rgba(255,255,255,.45);
+  font-size: 12px;
+  text-align: center;
+  margin: 4px 0 16px;
+}
+
+.thorn-msg-row {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+}
+
+.thorn-msg-row.sent { align-items: flex-end; }
+.thorn-msg-row.received { align-items: flex-start; }
+
+.thorn-msg-sender {
+  margin: 0 0 3px 8px;
+  color: rgba(255,255,255,.45);
+  font-size: 11px;
+}
+
+.thorn-msg {
+  max-width: 78%;
+  padding: 9px 13px 10px;
+  border-radius: 19px;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.thorn-msg-row.sent .thorn-msg {
+  background: #0a84ff;
+  border-bottom-right-radius: 5px;
+}
+
+.thorn-msg-row.received .thorn-msg {
+  background: #303034;
+  border-bottom-left-radius: 5px;
+}
+
+.thorn-composer {
+  position: sticky;
+  bottom: 0;
+  margin: 0 10px 10px;
+  height: 42px;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.18);
+  color: rgba(255,255,255,.35);
+  background: rgba(10,10,12,.96);
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.thorn-note-list .thorn-phone-row {
+  align-items: flex-start;
+}
+
+.thorn-note-body {
+  padding: 18px 20px 90px;
+  color: #f6f6f6;
+  font-size: 19px;
+  line-height: 1.42;
+  white-space: pre-wrap;
+}
+
+.thorn-note-date {
+  color: rgba(255,255,255,.48);
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.thorn-note-title-large {
+  font-size: 24px;
+  line-height: 1.12;
+  margin-bottom: 18px;
+}
+
+#thorn-overlay .thorn-fullview {
+  inset: 0;
+  z-index: 30;
+  border-radius: 34px;
+  overflow: hidden;
+  background: #000;
+}
+
+#thorn-overlay .thorn-fv-bar {
+  height: 52px;
+  padding: 0 18px;
+  background: rgba(12,12,14,.94);
+}
+
+#thorn-overlay .thorn-fv-back {
+  color: #0a84ff;
+  font-size: 15px;
+}
+
+#thorn-overlay .thorn-fv-img-wrap {
+  background: #000;
+}
+
+#thorn-overlay .thorn-fv-counter {
+  height: 36px;
+  background: rgba(12,12,14,.94);
+  color: rgba(255,255,255,.52);
+}
+
+@media (max-width: 680px) {
+  #thorn-overlay .thorn-frame {
+    right: 50%;
+    top: 50%;
+    transform: translate(50%, calc(100% + 4rem));
+  }
+  #thorn-overlay.open .thorn-frame {
+    transform: translate(50%, -50%);
+  }
+}
+
+/* ── GRIMOIRE BOOK ── */
+#grimoire-overlay{display:none;position:fixed;inset:0;z-index:2100;pointer-events:none;}
+#grimoire-overlay.open{display:flex;align-items:center;justify-content:center;pointer-events:auto;}
+.grimoire-backdrop{position:absolute;inset:0;background:rgba(2,1,0,.96);cursor:pointer;}
+
+.gr-shell{
+  position:relative;z-index:1;
+  width:min(900px,96vw);
+  height:min(90vh,860px);
+  display:flex;flex-direction:column;padding:14px 20px 12px;gap:8px;
+  border:1px solid rgba(180,140,70,.22);
+  background:rgba(4,2,0,.98);
+}
+.gr-topbar{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.gr-label{font-family:var(--mono);font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:rgba(180,140,70,.32);}
+.gr-close{
+  background:none;border:1px solid rgba(180,140,70,.2);color:rgba(180,140,70,.48);
+  font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;
+  padding:4px 12px;cursor:pointer;transition:all .2s;
+}
+.gr-close:hover{border-color:rgba(180,140,70,.7);color:#c8a050;}
+
+.gr-book{
+  position:relative;display:flex;align-items:stretch;
+  flex:1;min-height:0;perspective:2200px;
+}
+/* each slot is a positioned container so images fill it uniformly */
+.gr-left-slot,.gr-right-slot{
+  flex:1;overflow:hidden;min-width:0;min-height:0;position:relative;
+  background:rgba(8,5,2,1);
+}
+.gr-page-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;display:block;
+}
+.gr-right-slot .gr-page-img{box-shadow:-6px 0 24px rgba(0,0,0,.75);}
+.gr-left-slot  .gr-page-img{box-shadow: 6px 0 24px rgba(0,0,0,.75);}
+.gr-spine{
+  width:8px;flex-shrink:0;
+  background:linear-gradient(to right,rgba(0,0,0,.8),rgba(80,50,10,.5),rgba(0,0,0,.75));
+  box-shadow:inset 0 0 5px rgba(0,0,0,.6);
+}
+
+/* cover: anchored to right (front of closed book) */
+.gr-book.gr-single-right .gr-left-slot{display:none;}
+.gr-book.gr-single-right .gr-spine{display:none;}
+.gr-book.gr-single-right .gr-right-slot{flex:0 0 min(440px,50%);margin-left:auto;margin-right:0;}
+.gr-book.gr-single-right .gr-page-img{box-shadow:0 24px 70px rgba(0,0,0,.9);}
+/* back cover: anchored to left (back of closed book) */
+.gr-book.gr-single-left .gr-right-slot{display:none;}
+.gr-book.gr-single-left .gr-spine{display:none;}
+.gr-book.gr-single-left .gr-left-slot{flex:0 0 min(440px,50%);margin-left:0;margin-right:auto;}
+.gr-book.gr-single-left .gr-page-img{box-shadow:0 24px 70px rgba(0,0,0,.9);}
+
+/* page fold animations — right page folds toward spine, left page unfolds from spine */
+.gr-fold-out-r{animation:grFoldOut .28s ease-in  forwards;transform-origin:left  center;}
+.gr-fold-in-l {animation:grFoldIn  .26s ease-out forwards;transform-origin:right center;}
+.gr-fold-out-l{animation:grFoldOut .28s ease-in  forwards;transform-origin:right center;}
+.gr-fold-in-r {animation:grFoldIn  .26s ease-out forwards;transform-origin:left  center;}
+@keyframes grFoldOut{from{transform:scaleX(1);}to{transform:scaleX(0);}}
+@keyframes grFoldIn {from{transform:scaleX(0);}to{transform:scaleX(1);}}
+
+/* click zones */
+.gr-zone{position:absolute;top:0;bottom:0;width:44%;z-index:5;background:transparent;border:none;cursor:pointer;}
+.gr-zone-left{left:0;}
+.gr-zone-right{right:0;}
+
+.gr-footer{text-align:center;flex-shrink:0;padding:4px 0 0;}
+.gr-counter{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:rgba(180,140,70,.32);}
+
 </style>
 </head>
 <body>
@@ -1036,8 +1670,8 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
       <div class="log-row log-new" onclick="goVideoSection()">
         <div class="log-tag">VID</div>
         <div class="log-body">
-          <div class="log-id">CASE-7304 — VID-05 · VID-15 · VID-22 · VID-29 · VID-43 · VID-50</div>
-          <div class="log-title">Video Records — 6 files public</div>
+          <div class="log-id">CASE-7304 — VID-05 · VID-15 · VID-22 · VID-29 · VID-36 · VID-43 · VID-50 · VID-57</div>
+          <div class="log-title">Video Records — 8 files public</div>
           <div class="log-sub">→ DOS-CASE-7304 → Video Records</div>
         </div>
         <div class="log-meta"><span class="log-era">319 BX — 2026.06.11</span><span class="log-flag lf-new">New</span></div>
@@ -1261,6 +1895,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:1.5rem;t
       </div>
       <div class="rpc-stamp">Restricted Public Copy</div>
     </div>
+  </div>
   </div>
 </div>
 </div>
@@ -2173,6 +2808,27 @@ function buildCaseDetail(caseId) {
             <div class="vcard-badges"><span class="badge b-open">Public</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">Aug 2026 · 319 BX</span></div>
           </div>
         </div>
+        <!-- VID-36 -->
+        <div class="vcard" id="vcard-36">
+          <div class="vcard-player">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+              <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/CASE-7304-VID-36_rhwjaa.mp4" type="video/mp4">
+            </video>
+            <div class="vcard-scanlines"></div>
+            <div class="vcard-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+            <div class="vcard-stamp">REC · VID-36</div>
+            <div class="vcard-thumb">
+              <img src="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-VID-36_vlvft1.png" alt="CASE-7304-VID-36">
+              <div class="vcard-thumb-overlay"><div class="vcard-play-btn">▶</div></div>
+            </div>
+            <button class="vcard-mute">♪ OFF</button>
+          </div>
+          <div class="vcard-info">
+            <div class="vcard-id">CASE-7304-VID-36</div>
+            <div class="vcard-title">Mirror Mirror Why</div>
+            <div class="vcard-badges"><span class="badge b-open">Public</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">2026 · 319 BX</span></div>
+          </div>
+        </div>
         <!-- VID-43 -->
         <div class="vcard" id="vcard-43">
           <div class="vcard-player">
@@ -2213,6 +2869,27 @@ function buildCaseDetail(caseId) {
             <div class="vcard-id">CASE-7304-VID-50</div>
             <div class="vcard-title">Hallway Footage Fragment</div>
             <div class="vcard-badges"><span class="badge b-open">Public</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">Sep 2026 · 319 BX</span></div>
+          </div>
+        </div>
+        <!-- VID-57 -->
+        <div class="vcard" id="vcard-57">
+          <div class="vcard-player">
+            <video loop muted playsinline preload="metadata" crossorigin="anonymous">
+              <source src="https://res.cloudinary.com/dtbuzvpem/video/upload/CASE-7304-VID-57_uqtfov.mp4" type="video/mp4">
+            </video>
+            <div class="vcard-scanlines"></div>
+            <div class="vcard-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+            <div class="vcard-stamp">REC · VID-57</div>
+            <div class="vcard-thumb">
+              <img src="https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-VID-57_tkvj7d.png" alt="CASE-7304-VID-57">
+              <div class="vcard-thumb-overlay"><div class="vcard-play-btn">▶</div></div>
+            </div>
+            <button class="vcard-mute">♪ OFF</button>
+          </div>
+          <div class="vcard-info">
+            <div class="vcard-id">CASE-7304-VID-57</div>
+            <div class="vcard-title">Best Friends</div>
+            <div class="vcard-badges"><span class="badge b-open">Public</span><span style="font-size:8px;color:var(--ivory4);letter-spacing:.05em">2026 · 319 BX</span></div>
           </div>
         </div>
 
@@ -2513,7 +3190,7 @@ function checkGlobalPassword(val) {
   // clear input
   var inp = document.getElementById('pwd-global-input');
   // Map of passwords to experience functions
-  var map = { 'THORN': function(){ openThorn(); } };
+  var map = { 'THORN': function(){ openThorn(); }, 'GRIMOIRE': function(){ openGrimoire(); } };
   if (map[val]) {
     if (inp) inp.value = '';
     if (err) err.style.display = 'none';
@@ -2711,114 +3388,660 @@ var TG=[
   "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385919/CASE-7304-THORN-SCR-GALLERY-091_mtoydb.png",
   "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781385916/CASE-7304-THORN-SCR-GALLERY-043_p6tg0z.png"
 ];
-var TC=[
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386702/CASE-7304-THORN-SCR-CHATS-02_ub33nt.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386704/CASE-7304-THORN-SCR-CHATS-03_knchxt.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386703/CASE-7304-THORN-SCR-CHATS-04_prou06.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386703/CASE-7304-THORN-SCR-CHATS-05_s7bwpo.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386703/CASE-7304-THORN-SCR-CHATS-06_bpvqj6.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386702/CASE-7304-THORN-SCR-CHATS-07_n8qyon.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386703/CASE-7304-THORN-SCR-CHATS-08_megpsp.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386704/CASE-7304-THORN-SCR-CHATS-09_qaqcae.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/v1781386705/CASE-7304-THORN-SCR-CHATS-10_isnxbk.png"
+var THORN_THREADS=[
+  {
+    id:'caio',
+    name:'Caio',
+    initials:'C',
+    preview:"he's gone",
+    listDate:'Nov 12',
+    messages:[
+      {type:'date',text:'Tue, Sep 1, 2026 at 8:42 PM'},
+      {from:'them',text:'do i need shoes inside?'},
+      {from:'me',text:'yes'},
+      {from:'them',text:'even if the floor likes me?'},
+      {from:'me',text:'especially then'},
+      {from:'them',text:'i am trying to look normal'},
+      {from:'me',text:"you're doing great"},
+      {from:'them',text:'the microwave sang at me'},
+      {from:'me',text:"don't touch anything else until i get back"},
+      {type:'date',text:'Thu, Nov 12, 2026 at 2:06 AM'},
+      {from:'me',text:'please come back'},
+      {from:'me',text:"I didn't mean for any of this to happen"},
+      {from:'me',text:'I know you hate what I did'},
+      {from:'me',text:'you were real to me'},
+      {from:'me',text:"I'm sorry"}
+    ]
+  },
+  {
+    id:'corner-table',
+    name:'3B corner table',
+    initials:'3B',
+    preview:'then tell him to stop staring at everyone',
+    listDate:'Sep 7',
+    group:true,
+    messages:[
+      {type:'date',text:'Mon, Sep 7, 2026 at 3:28 PM'},
+      {from:'them',sender:'Lara',text:'who is that guy with you?'},
+      {from:'them',sender:'Milo',text:'the white one in the east wing?'},
+      {from:'me',text:"I don't know who you're talking about"},
+      {from:'them',sender:'Lara',text:'this guy'},
+      {from:'them',sender:'Milo',text:"he doesn't blink"},
+      {from:'me',text:'stop taking photos of people'},
+      {from:'them',sender:'Lara',text:'then tell him to stop staring at everyone'}
+    ]
+  },
+  {
+    id:'caetano',
+    name:'Caetano',
+    initials:'C',
+    preview:"I'm two minutes away",
+    listDate:'Nov 12',
+    messages:[
+      {type:'date',text:'Tue, Sep 8, 2026 at 6:12 PM'},
+      {from:'me',text:'everyone noticed him today'},
+      {from:'them',text:'because he looks like a haunted sculpture'},
+      {from:'me',text:'not helping'},
+      {from:'them',text:'did he at least survive lunch?'},
+      {from:'me',text:'he stared at the milk cartons for two minutes'},
+      {from:'them',text:'iconic'},
+      {from:'me',text:'caetano'},
+      {from:'them',text:"i'm serious. i'm on his side already"},
+      {type:'date',text:'Sat, Oct 24, 2026 at 11:43 PM'},
+      {from:'them',text:"he knows, doesn't he?"},
+      {from:'me',text:'I think so'},
+      {from:'them',text:'Nico, what did you do?'},
+      {from:'me',text:'I tried to fix it'},
+      {from:'them',text:'that is not an answer'},
+      {from:'me',text:'he found the book'},
+      {from:'them',text:'oh no'},
+      {from:'them',text:"I'm coming over"},
+      {type:'date',text:'Wed, Nov 11, 2026 at 11:58 PM'},
+      {from:'them',text:'where are you?'},
+      {from:'them',text:'Nico answer me'},
+      {from:'them',text:'Beto knows'},
+      {from:'me',text:'he went back to the museum'},
+      {from:'them',text:"don't go alone"},
+      {from:'me',text:'I have to'},
+      {from:'them',text:"I'm coming anyway"},
+      {type:'date',text:'Thu, Nov 12, 2026 at 2:19 AM'},
+      {from:'them',text:'nico?'},
+      {from:'them',text:'are you safe?'},
+      {from:'me',text:'no'},
+      {from:'them',text:'where are you'},
+      {from:'me',text:'outside the museum'},
+      {from:'them',text:"I'm two minutes away"},
+      {from:'me',text:"he's gone"}
+    ]
+  },
+  {
+    id:'beto',
+    name:'Beto',
+    initials:'B',
+    preview:'then keep him away from the museum',
+    listDate:'Oct 30',
+    messages:[
+      {type:'date',text:'Fri, Oct 9, 2026 at 9:14 PM'},
+      {from:'them',text:"I know Kako Kobianchi doesn't exist."},
+      {from:'me',text:'what are you talking about'},
+      {from:'them',text:'there is no old record, no transfer, nothing'},
+      {from:'me',text:'leave us alone'},
+      {from:'them',text:'then explain the file'},
+      {from:'me',text:'stop digging'},
+      {from:'them',text:'tell him museums are better at keeping the dead'},
+      {type:'date',text:'Fri, Oct 30, 2026 at 10:51 PM'},
+      {from:'them',text:'he went into the archive room'},
+      {from:'me',text:'why are you watching him'},
+      {from:'them',text:'because somebody has to'},
+      {from:'me',text:'stay away from him'},
+      {from:'them',text:'then keep him away from the museum'}
+    ]
+  }
 ];
-var TN=[
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-THORN-SCR-NOTES-000_mpl8s1.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-THORN-SCR-NOTES-001_kc6qu3.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-THORN-SCR-NOTES-002_mdkt1k.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-THORN-SCR-NOTES-003_tyjihm.png",
-  "https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-THORN-SCR-NOTES-004_ptlq2c.png"
+
+var THORN_NOTES=[
+  {
+    id:'asap',
+    title:'things to figure out ASAP',
+    date:'August 14, 2026 at 2:17 AM',
+    preview:"don't leave him alone",
+    body:[
+      "- don't leave him alone",
+      "- buy food",
+      "  o stuff that's easy",
+      "  o water",
+      "  o no alcohol",
+      "- explain school",
+      "  o attendance",
+      "  o schedule",
+      "  o uniform??",
+      "- don't let him look at people for too long",
+      "- figure out where he'll sleep",
+      "  o bed? couch? floor? no.",
+      "- hide museum article",
+      "  o delete from history",
+      "  o check if he saved it",
+      "- find normal clothes",
+      "  o hoodie, jeans, sneakers",
+      "  o nothing flashy",
+      "- ask Caetano for help?",
+      "  o money",
+      "  o covering for him if needed",
+      "",
+      "-----",
+      "other stuff:",
+      "[ ] new phone?",
+      "[ ] sim card",
+      "[ ] cash",
+      "[ ] id?",
+      "[ ] figure out his name (he didn't say)",
+      "",
+      "note to self: breathe."
+    ].join('\n')
+  },
+  {
+    id:'school',
+    title:'things Caio needs before school',
+    date:'August 28, 2026 at 1:14 AM',
+    preview:'backpack, notebooks, pens + pencils',
+    body:[
+      "- backpack",
+      "- notebooks",
+      "- pens + pencils",
+      "- hoodie that fits",
+      "- dark jeans",
+      "- sneakers",
+      "- explain:",
+      "  o homeroom",
+      "  o lunch line",
+      "  o lockers",
+      "  o bells",
+      "- remind him:",
+      "  o don't stare",
+      "  o don't tell people about the museum",
+      "  o if someone asks, say 'Kako'",
+      "- figure out attendance office / forms",
+      "- ask Caetano to help with uniform",
+      "",
+      "note to self: act normal."
+    ].join('\n')
+  },
+  {
+    id:'calm',
+    title:'things that seem to calm him down',
+    date:'August 31, 2026 at 12:51 AM',
+    preview:'warm tea, quiet music, low light',
+    body:[
+      "- warm tea",
+      "- cut fruit",
+      "- music, quiet",
+      "- sitting by the window when it's raining",
+      "- old picture books",
+      "- touching flower petals / leaves",
+      "- soft blankets",
+      "- low light",
+      "",
+      "avoid:",
+      "- crowded places",
+      "- loud TV",
+      "- mirrors at night?",
+      "- anyone touching his face without asking",
+      "- alcohol. seriously no.",
+      "",
+      "remember:",
+      "- he gets embarrassed when people laugh",
+      "- explain things slowly",
+      "- don't make it obvious you're watching him"
+    ].join('\n')
+  },
+  {
+    id:'cover-story',
+    title:'cover story / school version',
+    date:'September 2, 2026 at 2:09 AM',
+    preview:'name: Kako Kobianchi',
+    body:[
+      "- name: Kako Kobianchi",
+      "- transfer student",
+      "- very bad vision (10%)",
+      "- skin condition",
+      "- keep answers short",
+      "- no details about family unless needed",
+      "- no one needs old records right away... hopefully",
+      "",
+      "things to practice with him",
+      "  o 'nice to meet you'",
+      "  o 'sorry, i didn't hear you'",
+      "  o 'can you repeat that?'",
+      "  o 'where is room 204?'",
+      "  o not smiling at the wrong time"
+    ].join('\n')
+  },
+  {
+    id:'today',
+    title:'things that happened today',
+    date:'September 7, 2026 at 11:58 PM',
+    preview:'he stood in the kitchen for 20 min',
+    body:[
+      "- he stood in the kitchen for 20 min holding a spoon",
+      "- asked why birds 'argue so early'",
+      "- stared at the washing machine like it was a portal",
+      "- folded my hoodie with way too much care",
+      "- called the moon 'familiar'",
+      "- smiled at the plant when i watered it",
+      "- knew where the extra blanket was????",
+      "- still hasn't told me his old name",
+      "",
+      "buy tomorrow:",
+      "[ ] cereal",
+      "[ ] apples",
+      "[ ] toothpaste",
+      "[ ] another pillow",
+      "",
+      "breathe. this is fine."
+    ].join('\n')
+  }
 ];
-var _fvSet=[],_fvIdx=0;
+
+var _fvSet=[],_fvIdx=0,_fvLabel='';
+
+function thornEsc(s){
+  return String(s==null?'':s).replace(/[&<>"']/g,function(ch){
+    if(ch==='&') return '&amp;';
+    if(ch==='<') return '&lt;';
+    if(ch==='>') return '&gt;';
+    if(ch==='"') return '&quot;';
+    return '&#39;';
+  });
+}
+
+function thornContent(){
+  return document.getElementById('thorn-content');
+}
+
+// ══ GRIMOIRE ══
+var GRIMOIRE_PAGES = [
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-001_cover_scan_jfigcc.png',label:'PG-001 — Cover'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-002_rules-copied_scan_rixk1a.png',label:'PG-002 — Rules Copied'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-003_correspondences_scan_yu6xuu.png',label:'PG-003 — Correspondences'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-004_palmistry_scan_qbyvdo.png',label:'PG-004 — Palmistry'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-005_talisman-practice_scan_fbmoq9.png',label:'PG-005 — Talisman Practice'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-006_museum-sketches_scan_qwtfpt.png',label:'PG-006 — Museum Sketches'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-007_failed-tests_scan_tzaobu.png',label:'PG-007 — Failed Tests'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-008_love-research_scan_sj3iuw.png',label:'PG-008 — Love Research'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-009_target-confusion_scan_hh9qgg.png',label:'PG-009 — Target Confusion'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-010_thorn-rose-idol_scan_gbr7my.png',label:'PG-010 — Thorn Rose Idol'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-011_spell-night_scan_tmwjgp.png',label:'PG-011 — Spell Night'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-012_empty-pedestal_scan_qqhcai.png',label:'PG-012 — Empty Pedestal'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-013_first-observations_scan_oqebfo.png',label:'PG-013 — First Observations'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-014_mirror-response_scan_hj6cbq.png',label:'PG-014 — Mirror Response'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-015_clothing-body_scan_iymdcf.png',label:'PG-015 — Clothing / Body'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-016_floriano-history_qvmw0g.png',label:'PG-016 — Floriano History'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-017_black-rose-theory_scan_whtsxd.png',label:'PG-017 — Black Rose Theory'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-018_two-swords_scan_elohmp.png',label:'PG-018 — Two Swords'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-019_spell-found_scan_dv6ecm.png',label:'PG-019 — Spell Found'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-020_reversal-attempts_scan_eqikna.png',label:'PG-020 — Reversal Attempts'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-021_after-breaking_scan_sqy8kq.png',label:'PG-021 — After Breaking'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-022_last-restoration_scan_w9i47x.png',label:'PG-022 — Last Restoration'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-023_miss-you_msitaa.png',label:'PG-023 — Miss You'},
+  {url:'https://res.cloudinary.com/dtbuzvpem/image/upload/q_auto/f_auto/CASE-7304-GRIMOIRE-PG-024_back_scan_cldybe.png',label:'PG-024 — Back Cover'}
+];
+
+// 13 view states: cover → 11 spreads → back cover
+var GR_STATES = [
+  {type:'single', pi:[0]},
+  {type:'spread', pi:[1,2]},
+  {type:'spread', pi:[3,4]},
+  {type:'spread', pi:[5,6]},
+  {type:'spread', pi:[7,8]},
+  {type:'spread', pi:[9,10]},
+  {type:'spread', pi:[11,12]},
+  {type:'spread', pi:[13,14]},
+  {type:'spread', pi:[15,16]},
+  {type:'spread', pi:[17,18]},
+  {type:'spread', pi:[19,20]},
+  {type:'spread', pi:[21,22]},
+  {type:'single', pi:[23]}
+];
+var grCurrent = 0, grBusy = false;
+
+function openGrimoire(){
+  grCurrent = 0; grBusy = false;
+  var o = document.getElementById('grimoire-overlay');
+  if(o){ o.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  var book = document.getElementById('gr-book');
+  if(book){ book.style.opacity = '1'; book.style.transition = ''; }
+  grApplyState(0);
+}
+
+function closeGrimoire(){
+  var o = document.getElementById('grimoire-overlay');
+  if(o) o.classList.remove('open');
+  document.body.style.overflow = '';
+  grBusy = false;
+}
+
+function grApplyState(idx){
+  var st = GR_STATES[idx];
+  var book = document.getElementById('gr-book');
+  var li   = document.getElementById('gr-left-img');
+  var ri   = document.getElementById('gr-right-img');
+  if(!book) return;
+  book.classList.remove('gr-single-right','gr-single-left');
+  if(st.type === 'single'){
+    if(idx === 0){
+      // cover: sits on the right side (front of closed book)
+      book.classList.add('gr-single-right');
+      if(li) li.src = '';
+      if(ri){ ri.src = GRIMOIRE_PAGES[st.pi[0]].url; ri.alt = GRIMOIRE_PAGES[st.pi[0]].label; }
+    } else {
+      // back cover: sits on the left side (back of closed book)
+      book.classList.add('gr-single-left');
+      if(ri) ri.src = '';
+      if(li){ li.src = GRIMOIRE_PAGES[st.pi[0]].url; li.alt = GRIMOIRE_PAGES[st.pi[0]].label; }
+    }
+  } else {
+    if(li){ li.src = GRIMOIRE_PAGES[st.pi[0]].url; li.alt = GRIMOIRE_PAGES[st.pi[0]].label; }
+    if(ri){ ri.src = GRIMOIRE_PAGES[st.pi[1]].url; ri.alt = GRIMOIRE_PAGES[st.pi[1]].label; }
+  }
+  var ctr = document.getElementById('gr-counter');
+  if(ctr) ctr.textContent = (idx+1) + ' / ' + GR_STATES.length;
+}
+
+function grGoNext(){
+  if(grBusy || grCurrent >= GR_STATES.length - 1) return;
+  var to = grCurrent + 1, toSt = GR_STATES[to];
+  grBusy = true; grCurrent = to;
+  var li = document.getElementById('gr-left-img');
+  var ri = document.getElementById('gr-right-img');
+  var book = document.getElementById('gr-book');
+
+  // phase 1: right side image folds toward spine
+  ri.classList.add('gr-fold-out-r');
+  ri.addEventListener('animationend', function h(){
+    ri.removeEventListener('animationend', h);
+    ri.classList.remove('gr-fold-out-r');
+    // update layout mode and images while everything is edge-on
+    book.classList.remove('gr-single-right','gr-single-left');
+    if(toSt.type === 'single'){
+      book.classList.add('gr-single-left');
+      if(li){ li.src = GRIMOIRE_PAGES[toSt.pi[0]].url; li.alt = GRIMOIRE_PAGES[toSt.pi[0]].label; }
+      ri.src = '';
+    } else {
+      if(li){ li.src = GRIMOIRE_PAGES[toSt.pi[0]].url; li.alt = GRIMOIRE_PAGES[toSt.pi[0]].label; }
+      if(ri){ ri.src = GRIMOIRE_PAGES[toSt.pi[1]].url; ri.alt = GRIMOIRE_PAGES[toSt.pi[1]].label; }
+    }
+    // phase 2: new left side image unfolds from spine
+    li.classList.add('gr-fold-in-l');
+    li.addEventListener('animationend', function h2(){
+      li.removeEventListener('animationend', h2);
+      li.classList.remove('gr-fold-in-l');
+      var ctr = document.getElementById('gr-counter');
+      if(ctr) ctr.textContent = (to+1) + ' / ' + GR_STATES.length;
+      grBusy = false;
+    }, {once:true});
+  }, {once:true});
+}
+
+function grGoPrev(){
+  if(grBusy || grCurrent <= 0) return;
+  var to = grCurrent - 1, toSt = GR_STATES[to];
+  grBusy = true; grCurrent = to;
+  var li = document.getElementById('gr-left-img');
+  var ri = document.getElementById('gr-right-img');
+  var book = document.getElementById('gr-book');
+
+  // phase 1: left side image folds toward spine
+  li.classList.add('gr-fold-out-l');
+  li.addEventListener('animationend', function h(){
+    li.removeEventListener('animationend', h);
+    li.classList.remove('gr-fold-out-l');
+    // update layout mode and images while everything is edge-on
+    book.classList.remove('gr-single-right','gr-single-left');
+    if(toSt.type === 'single'){
+      book.classList.add('gr-single-right');
+      if(ri){ ri.src = GRIMOIRE_PAGES[toSt.pi[0]].url; ri.alt = GRIMOIRE_PAGES[toSt.pi[0]].label; }
+      li.src = '';
+    } else {
+      if(li){ li.src = GRIMOIRE_PAGES[toSt.pi[0]].url; li.alt = GRIMOIRE_PAGES[toSt.pi[0]].label; }
+      if(ri){ ri.src = GRIMOIRE_PAGES[toSt.pi[1]].url; ri.alt = GRIMOIRE_PAGES[toSt.pi[1]].label; }
+    }
+    // phase 2: new right side image unfolds from spine
+    ri.classList.add('gr-fold-in-r');
+    ri.addEventListener('animationend', function h2(){
+      ri.removeEventListener('animationend', h2);
+      ri.classList.remove('gr-fold-in-r');
+      var ctr = document.getElementById('gr-counter');
+      if(ctr) ctr.textContent = (to+1) + ' / ' + GR_STATES.length;
+      grBusy = false;
+    }, {once:true});
+  }, {once:true});
+}
+
+document.addEventListener('keydown', function(e){
+  var o = document.getElementById('grimoire-overlay');
+  if(!o || !o.classList.contains('open')) return;
+  if(e.key === 'ArrowRight') grGoNext();
+  if(e.key === 'ArrowLeft')  grGoPrev();
+  if(e.key === 'Escape')     closeGrimoire();
+});
+
+function thornSetStatus(label){
+  var owner=document.querySelector('#thorn-overlay .thorn-owner');
+  var clock=document.querySelector('#thorn-overlay .thorn-clock');
+  if(owner) owner.textContent='10:28';
+  if(clock) clock.textContent='LTE 73%';
+}
+
+function thornPut(html){
+  var c=thornContent();
+  if(!c) return;
+  c.innerHTML=html;
+  c.scrollTop=0;
+}
+
 function openThorn(){
   var o=document.getElementById('thorn-overlay');
-  if(o){o.classList.add('open');document.body.style.overflow='hidden';
-  thornSetTab('gallery',document.querySelector('.thorn-tab'));}
-}
-function closeThorn(){
-  var o=document.getElementById('thorn-overlay');
-  if(o)o.classList.remove('open');
-  document.body.style.overflow='';
-  thornBack();
-}
-function thornSetTab(tab,btn){
-  document.querySelectorAll('.thorn-tab').forEach(function(b){b.classList.remove('active');});
-  if(btn)btn.classList.add('active');
-  thornBack();
-  var c=document.getElementById('thorn-content');
-  var ttl=document.getElementById('thorn-app-title');
-  var sub=document.getElementById('thorn-app-sub');
-  if(!c)return;
-  c.innerHTML='';
-  if(tab==='gallery'){
-    if(ttl)ttl.textContent='Recents';
-    if(sub)sub.textContent=TG.length+' items';
-    var g=document.createElement('div');g.className='thorn-grid';
-    TG.forEach(function(url,i){
-      var d=document.createElement('div');d.className='thorn-thumb';
-      var img=document.createElement('img');img.src=url;img.loading='lazy';
-      img.addEventListener('click',(function(n){return function(){thornOpenFv(TG,n,'Photos');};})(i));
-      d.appendChild(img);g.appendChild(d);
-    });
-    c.appendChild(g);
-  } else if(tab==='chats'){
-    if(ttl)ttl.textContent='Messages';
-    if(sub)sub.textContent=TC.length+' conversations';
-    TC.forEach(function(url,i){
-      var d=document.createElement('div');d.className='thorn-chat-item';
-      var av=document.createElement('div');av.className='thorn-chat-avatar';
-      var img=document.createElement('img');img.src=url;img.loading='lazy';
-      av.appendChild(img);
-      var inf=document.createElement('div');inf.className='thorn-chat-info';
-      inf.innerHTML='<div class="thorn-chat-name">Conversation '+(i+1)+'</div><div class="thorn-chat-preview">Tap to open</div>';
-      d.appendChild(av);d.appendChild(inf);
-      d.addEventListener('click',(function(n){return function(){thornOpenFv(TC,n,'Messages');};})(i));
-      c.appendChild(d);
-    });
-  } else if(tab==='notes'){
-    if(ttl)ttl.textContent='Notes';
-    if(sub)sub.textContent=TN.length+' notes';
-    TN.forEach(function(url,i){
-      var d=document.createElement('div');d.className='thorn-note-item';
-      d.innerHTML='<div class="thorn-note-title">Note '+(i+1)+'</div><div class="thorn-note-preview">Tap to open</div>';
-      d.addEventListener('click',(function(n){return function(){thornOpenFv(TN,n,'Notes');};})(i));
-      c.appendChild(d);
-    });
+  if(o){
+    o.classList.add('open');
+    o.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    thornGoHome();
   }
 }
+
+function closeThorn(){
+  var o=document.getElementById('thorn-overlay');
+  if(o){
+    o.classList.remove('open');
+    o.setAttribute('aria-hidden','true');
+  }
+  document.body.style.overflow='';
+  thornCloseFv();
+}
+
+function thornGoHome(){
+  thornCloseFv();
+  thornSetStatus('N. Ramos');
+  thornPut(`
+    <div class="thorn-phone-home">
+      <div class="thorn-phone-lock">
+        <div class="thorn-phone-time">10:28</div>
+        <div class="thorn-phone-ownerline">Nico's iPhone</div>
+      </div>
+      <div class="thorn-phone-appgrid">
+        <button class="thorn-phone-app" onclick="thornOpenApp('photos')" aria-label="Open Photos">
+          <span class="thorn-phone-icon photos"></span>
+          <span class="thorn-phone-label">Photos</span>
+        </button>
+        <button class="thorn-phone-app" onclick="thornOpenApp('messages')" aria-label="Open Messages">
+          <span class="thorn-phone-icon messages">M</span>
+          <span class="thorn-phone-label">Messages</span>
+        </button>
+        <button class="thorn-phone-app" onclick="thornOpenApp('notes')" aria-label="Open Notes">
+          <span class="thorn-phone-icon notes">N</span>
+          <span class="thorn-phone-label">Notes</span>
+        </button>
+      </div>
+      <div class="thorn-phone-dock">
+        <button class="thorn-phone-app" onclick="thornOpenApp('photos')" aria-label="Open Photos">
+          <span class="thorn-phone-icon photos"></span>
+          <span class="thorn-phone-label">Photos</span>
+        </button>
+        <button class="thorn-phone-app" onclick="thornOpenApp('messages')" aria-label="Open Messages">
+          <span class="thorn-phone-icon messages">M</span>
+          <span class="thorn-phone-label">Messages</span>
+        </button>
+        <button class="thorn-phone-app" onclick="thornOpenApp('notes')" aria-label="Open Notes">
+          <span class="thorn-phone-icon notes">N</span>
+          <span class="thorn-phone-label">Notes</span>
+        </button>
+      </div>
+    </div>
+  `);
+}
+
+function thornFrame(title,sub,body,backAction){
+  return `
+    <div class="thorn-phone-shell">
+      <div class="thorn-phone-toolbar">
+        <button class="thorn-phone-back" onclick="${backAction||'thornGoHome()'}" aria-label="Back">← Back</button>
+        <div class="thorn-phone-title">
+          <strong>${thornEsc(title)}</strong>
+          <span>${thornEsc(sub||'')}</span>
+        </div>
+        <button class="thorn-phone-home-btn" onclick="thornGoHome()" aria-label="Home">⌂</button>
+      </div>
+      <div class="thorn-phone-body">${body}</div>
+    </div>
+  `;
+}
+
+function thornOpenApp(app){
+  thornCloseFv();
+  if(app==='photos') return thornRenderPhotos();
+  if(app==='messages') return thornRenderMessages();
+  if(app==='notes') return thornRenderNotes();
+  thornGoHome();
+}
+
+function thornSetTab(tab){
+  if(tab==='gallery') return thornOpenApp('photos');
+  if(tab==='chats') return thornOpenApp('messages');
+  if(tab==='notes') return thornOpenApp('notes');
+}
+
+function thornRenderPhotos(){
+  thornSetStatus('Photos');
+  var body='<div class="thorn-photo-grid">'+TG.map(function(url,i){
+    return '<button class="thorn-photo-thumb" onclick="thornOpenFv(TG,'+i+',&quot;Photos&quot;)" aria-label="Open photo '+(i+1)+'"><img src="'+thornEsc(url)+'" loading="lazy" alt=""></button>';
+  }).join('')+'</div>';
+  thornPut(thornFrame('Photos',TG.length+' items',body,'thornGoHome()'));
+}
+
+function thornRenderMessages(){
+  thornSetStatus('Messages');
+  var rows=THORN_THREADS.map(function(t){
+    return `
+      <button class="thorn-phone-row" onclick="thornRenderThread('${t.id}')">
+        <span class="thorn-phone-avatar">${thornEsc(t.initials)}</span>
+        <span class="thorn-phone-row-main">
+          <span class="thorn-phone-row-top">
+            <span class="thorn-phone-row-name">${thornEsc(t.name)}</span>
+            <span class="thorn-phone-row-date">${thornEsc(t.listDate)}</span>
+          </span>
+          <span class="thorn-phone-preview">${thornEsc(t.preview)}</span>
+        </span>
+      </button>
+    `;
+  }).join('');
+  thornPut(thornFrame('Messages',THORN_THREADS.length+' conversations','<div class="thorn-phone-list">'+rows+'</div>','thornGoHome()'));
+}
+
+function thornFindThread(id){
+  return THORN_THREADS.find(function(t){return t.id===id;});
+}
+
+function thornRenderThread(id){
+  var t=thornFindThread(id);
+  if(!t) return thornRenderMessages();
+  thornSetStatus(t.name);
+  var msgHtml=t.messages.map(function(m){
+    if(m.type==='date') return '<div class="thorn-thread-date">'+thornEsc(m.text)+'</div>';
+    var sent=m.from==='me';
+    var sender=(!sent&&t.group&&m.sender)?'<div class="thorn-msg-sender">'+thornEsc(m.sender)+'</div>':'';
+    return '<div class="thorn-msg-row '+(sent?'sent':'received')+'">'+sender+'<div class="thorn-msg">'+thornEsc(m.text)+'</div></div>';
+  }).join('');
+  var body='<div class="thorn-thread">'+msgHtml+'</div><div class="thorn-composer">iMessage</div>';
+  thornPut(thornFrame(t.name,(t.group?'group chat':'iMessage'),body,'thornRenderMessages()'));
+}
+
+function thornRenderNotes(){
+  thornSetStatus('Notes');
+  var rows=THORN_NOTES.map(function(n){
+    return `
+      <button class="thorn-phone-row" onclick="thornRenderNote('${n.id}')">
+        <span class="thorn-phone-row-main">
+          <span class="thorn-phone-row-top">
+            <span class="thorn-phone-row-name">${thornEsc(n.title)}</span>
+            <span class="thorn-phone-row-date">${thornEsc(n.date.split(' at ')[0])}</span>
+          </span>
+          <span class="thorn-phone-preview">${thornEsc(n.preview)}</span>
+        </span>
+      </button>
+    `;
+  }).join('');
+  thornPut(thornFrame('Notes',THORN_NOTES.length+' notes','<div class="thorn-phone-list thorn-note-list">'+rows+'</div>','thornGoHome()'));
+}
+
+function thornFindNote(id){
+  return THORN_NOTES.find(function(n){return n.id===id;});
+}
+
+function thornRenderNote(id){
+  var n=thornFindNote(id);
+  if(!n) return thornRenderNotes();
+  thornSetStatus('Notes');
+  var body=`
+    <div class="thorn-note-body">
+      <div class="thorn-note-date">${thornEsc(n.date)}</div>
+      <div class="thorn-note-title-large">${thornEsc(n.title)}</div>${thornEsc(n.body)}
+    </div>
+  `;
+  thornPut(thornFrame('Notes','',body,'thornRenderNotes()'));
+}
+
 function thornOpenFv(set,idx,label){
-  _fvSet=set;_fvIdx=idx;
+  _fvSet=(set||[]).slice();
+  _fvIdx=idx||0;
+  _fvLabel=label||'';
   var fv=document.getElementById('thorn-fullview');
   if(fv)fv.classList.add('open');
   var lb=document.getElementById('thorn-fv-label');
-  if(lb&&label)lb.textContent=label;
+  if(lb)lb.textContent=_fvLabel;
   thornRender();
 }
-function thornBack(){
+
+function thornCloseFv(){
   var fv=document.getElementById('thorn-fullview');
   if(fv)fv.classList.remove('open');
 }
+
+function thornBack(){
+  thornCloseFv();
+}
+
 function thornNav(dir){
   if(!_fvSet.length)return;
   _fvIdx=(_fvIdx+dir+_fvSet.length)%_fvSet.length;
   thornRender();
 }
+
 function thornRender(){
   var img=document.getElementById('thorn-fv-img');
   var ctr=document.getElementById('thorn-fv-counter');
-  if(img)img.src=_fvSet[_fvIdx];
-  if(ctr)ctr.textContent=(_fvIdx+1)+' / '+_fvSet.length;
+  if(img)img.src=_fvSet[_fvIdx]||'';
+  if(ctr)ctr.textContent=_fvSet.length?((_fvIdx+1)+' / '+_fvSet.length):'';
 }
-document.addEventListener('keydown',function(e){
-  var o=document.getElementById('thorn-overlay');
-  if(!o||!o.classList.contains('open'))return;
-  if(e.key==='Escape'){closeThorn();return;}
-  var fv=document.getElementById('thorn-fullview');
-  if(fv&&fv.classList.contains('open')){
-    if(e.key==='ArrowLeft')thornNav(-1);
-    if(e.key==='ArrowRight')thornNav(1);
-  }
-});
 
 </script>
 
@@ -2827,6 +4050,13 @@ document.addEventListener('keydown',function(e){
 <!-- THORN OVERLAY — side panel -->
 <div id="thorn-overlay">
   <div class="thorn-backdrop" onclick="closeThorn()"></div>
+  <div class="thorn-frame" role="dialog" aria-label="Recovered Nico Ramos phone">
+    <div class="thorn-frame-bar">
+      <span class="thorn-frame-label">Recovered device viewport / N. Ramos</span>
+      <div class="thorn-close-strip">
+        <button class="thorn-close-btn" onclick="closeThorn()" aria-label="Close phone view"></button>
+      </div>
+    </div>
   <div class="thorn-panel">
     <div class="thorn-notch"><div class="thorn-notch-pill"></div></div>
     <div class="thorn-status">
@@ -2861,6 +4091,32 @@ document.addEventListener('keydown',function(e){
         </div>
       </div>
       <div class="thorn-fv-counter" id="thorn-fv-counter"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- GRIMOIRE BOOK OVERLAY -->
+<div id="grimoire-overlay">
+  <div class="grimoire-backdrop" onclick="closeGrimoire()"></div>
+  <div class="gr-shell" role="dialog" aria-label="Grimoire — Classified Document">
+    <div class="gr-topbar">
+      <span class="gr-label">GRIMOIRE // CASE-7304</span>
+      <button class="gr-close" onclick="closeGrimoire()">ESC</button>
+    </div>
+    <div class="gr-book gr-single-right" id="gr-book">
+      <div class="gr-left-slot" id="gr-left">
+        <img class="gr-page-img" id="gr-left-img" src="" alt="">
+      </div>
+      <div class="gr-spine"></div>
+      <div class="gr-right-slot" id="gr-right">
+        <img class="gr-page-img" id="gr-right-img" src="" alt="">
+      </div>
+      <button class="gr-zone gr-zone-left"  onclick="grGoPrev()" aria-label="Previous page"></button>
+      <button class="gr-zone gr-zone-right" onclick="grGoNext()" aria-label="Next page"></button>
+    </div>
+    <div class="gr-footer">
+      <span class="gr-counter" id="gr-counter">1 / 13</span>
     </div>
   </div>
 </div>
